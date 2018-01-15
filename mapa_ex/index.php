@@ -1,8 +1,9 @@
+<?php require '../mainfile.php'; ?>
 <html>
   <head>
-    <link href="css/style.css" type="text/css" rel="stylesheet">
-    <script src="js/jquery.js"></script>
-    <script src="js/mapa.js"></script>
+    <link href="<?= CSS . 'mapa.css'; ?>" type="text/css" rel="stylesheet">
+    <script src="<?= SCRIPTS . 'jquery.js'; ?>"></script>
+    <script src="<?= SCRIPTS . 'mapa.js'; ?>"></script>
   </head>
     <body>
       <h3>Meus pacientes</h3>
