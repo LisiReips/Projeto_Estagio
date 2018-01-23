@@ -34,7 +34,7 @@ function initialize() {
             map: map,
             title: markers[i][0]
         });
-        marker.setIcon('./imagens/marcador.png');
+        marker.setIcon('../webroot/img/marcador.png');
     
         // Cada marcador tera uma janela  
         google.maps.event.addListener(marker, 'click', (function(marker, i) {

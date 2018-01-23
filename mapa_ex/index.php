@@ -1,13 +1,15 @@
 <?php require '../mainfile.php'; ?>
 <html>
   <head>
+    <link rel="shortcut icon" href="<?= IMG . 'icone.ico'; ?>" >
+    <title>Mapa Pacientes</title>
     <link href="<?= CSS . 'mapa.css'; ?>" type="text/css" rel="stylesheet">
     <script src="<?= SCRIPTS . 'jquery.js'; ?>"></script>
     <script src="<?= SCRIPTS . 'mapa.js'; ?>"></script>
   </head>
-    <body>
+  <body>
       <h3>Meus pacientes</h3>
-      <select text-align-last: right id="type" onchange="filterMarkers(this.value);">
+      <select class="sbft" text-align-last: right id="type" onchange="filterMarkers(this.value);">
         <option direction: rtl value="selecionar">Selecione a doenca</option>
         <option value="asma">Asma</option>
         <option value="hipertensao">Hipertensao</option>
