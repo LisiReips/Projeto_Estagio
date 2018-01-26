@@ -3,21 +3,24 @@
   <head>
     <link rel="shortcut icon" href="<?= IMG . 'icone.ico'; ?>" >
     <title>Mapa Pacientes</title>
+    <script src="<?= SCRIPTS . 'jquery-3.3.1.min.js'; ?>"></script>
     <link href="<?= CSS . 'mapa.css'; ?>" type="text/css" rel="stylesheet">
-    <script src="<?= SCRIPTS . 'jquery.js'; ?>"></script>
-    <script src="<?= SCRIPTS . 'mapa.js'; ?>"></script>
   </head>
   <body>
-      <h3>Meus pacientes</h3>
-      <select class="sbft" text-align-last: right id="type" onchange="filterMarkers(this.value);">
-        <option direction: rtl value="selecionar">Selecione a doenca</option>
-        <option value="asma">Asma</option>
-        <option value="hipertensao">Hipertensao</option>
-        <option value="diabetes">Diabetes</option>
-      </select>
-      <div id="map_canvas"></div>
+
+    <div id="divDoencas" style="float: left;">
+      <div id="selShowDoencas" class="selShow">
+	<input id="selDoencas" class="inpEnt" type="text" src="" placeholder="SELECIONE AS DOENCAS" required="" disabled="">
+        <div style="position:absolute; left:0; right:0; top:0; bottom:0;" class=""></div>
+      </div>
+      <ul id="selectDoencas" class="listSel"></ul>
+    </div>
+    <button type="submit" id="btn_pesq">PESQUISAR</button>
     <div id="map_wrapper">
       <div id="map_canvas" class="mapping"></div>
     </div>
+
+
+    <script src="<?= SCRIPTS . 'mapa.js'; ?>"></script>
   </body>
 </html>
