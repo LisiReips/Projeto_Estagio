@@ -1,18 +1,11 @@
-
 #map_canvas {
   width: 100%;
   height: 100%;
 }
-
-
-/* tell the container's children to float left: */
 .float-my-children > * {
     float:left;
     margin-right:5px;
 }
-
-/* this is called a clearfix. it makes sure that the container's children floats are cleared, without using extra markup */
-
 .clearfix {
     *zoom:1 /* for IE */
 }
@@ -27,11 +20,6 @@
     clear: both;
 }
 
-/* end clearfix*/
-
-/* below is just to make things easier to see, not required */
-body >
-
 #map_canvas{
     border:1px dashed blue;
     margin-bottom:10px;    
@@ -42,11 +30,100 @@ body >
   max-height: 100px;
 }
 
-#type{
-  float:right;
+#selDoencas{
+  width: 520px;
 }
 
-.sbft{
-  width: 300px;  
-  height: 30px;
+.inpEnt {
+  border-radius: 5px;
+  height:30px;
+  background-color: #FFFFFF;
+}
+
+#selShowDoencas{
+  display:inline-block;
+  position:relative; 
+  width:100%;
+}
+
+.selShow {
+  user-select : none;
+  -moz-user-select : none;
+  -webkit-user-select : none;
+  color: gray;
+  cursor: pointer;
+}
+
+.listSel {
+  display:none;
+  list-style-type: none;
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  list-style-type:none;
+  height:150px;
+  overflow: auto;
+  z-index:3;
+  width: 522px;
+}
+
+li {
+  background:white;
+}
+
+li:hover {
+  background:grey;
+}
+
+ul,
+li{
+  list-style-type: none;
+  padding:0;
+  margin:0;
+}
+
+.btn {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 0 0.5rem 0;
+  padding: 0.85em 1em;
+  -webkit-appearance: none;
+  border: 1px solid transparent;
+  border-radius: 0;
+  transition: background-color 0.25s ease-out, color 0.25s ease-out;
+  font-size: 0.9rem;
+  line-height: 1;
+  text-align: center;
+  cursor: pointer;
+  background-color: #1779ba;
+  color: #fefefe; }
+[data-whatinput='mouse'] .btn {
+  outline: 0; }
+.btn:hover, .btn:focus {
+  background-color: #14679e;
+  color: #fefefe; }
+.btn.tiny {
+  font-size: 0.6rem; }
+.btn.small {
+  font-size: 0.75rem; }
+.btn.large {
+  font-size: 1.25rem; }
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+  border-style: none;
+  padding: 0; }
+button:-moz-focusring,
+[type="button"]:-moz-focusring,
+[type="reset"]:-moz-focusring,
+[type="submit"]:-moz-focusring {
+  outline: 1px dotted ButtonText; }
+
+@media(min-width: 1000px){
+
+}
+
+@media(max-width: 1000px){
+  
 }

@@ -1,3 +1,0 @@
-<h3>Darth Vader</h3><div class="clearfix float-my-children" ><img class='avatar' src='../webroot/img/Darth.jpg'/><p>Doença: asma (grau 1)</p></div>
-<h3>Gandalf cinzento</h3><div class="clearfix float-my-children" ><img class='avatar' src='../webroot/img/Gandalf-2.jpg'/><p>Doença: asma (grau 2)</p></div>
-<h3>Superman de lego</h3><div class="clearfix float-my-children" ><img class='avatar' src='../webroot/img/Superman_lego.jpg'/><p>Doença: asma (grau 3)</p></div>

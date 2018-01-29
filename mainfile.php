@@ -1,10 +1,11 @@
 <?php
 
 const DB_HOST = 'localhost';
-const DB_USER = 'root';
-const DB_PASS = 'root';
-const DB_NAME = 'db_pacientes';
-const DB_PORT = 3306;
+const DB_USER = 'postgres';
+const DB_PASS = 'raven';
+//const DB_PASS = 'PosTgr3$.C0tr1b@';
+const DB_NAME = 'teste';
+const DB_PORT = 5432;
 
 $url = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/Projeto_Estagio/';
 define('URL',     $url);
@@ -12,4 +13,4 @@ define('SCRIPTS', URL . 'webroot/scripts/');
 define('CSS',     URL. 'webroot/css/');
 define('IMG',     URL. 'webroot/img/');
 
-require 'classes/MysqlConn.class.php';
+require 'classes/PgConn.class.php';
