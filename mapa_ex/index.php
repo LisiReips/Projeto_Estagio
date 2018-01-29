@@ -15,7 +15,7 @@
       </div>
       <ul id="selectDoencas" class="listSel"></ul>
     </div>
-    <button type="submit" id="btn_pesq">PESQUISAR</button>
+    <button type="submit" class="btn tiny" id="btn_pesq">PESQUISAR</button>
     <div id="map_wrapper">
       <div id="map_canvas" class="mapping"></div>
     </div>

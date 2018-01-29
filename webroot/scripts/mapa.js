@@ -1,25 +1,39 @@
+//variaveis globais
+var doencas = "";
+var marcadores;
+var script = document.createElement('script');
+script.src = "//maps.googleapis.com/maps/api/js?key=AIzaSyBzzVO9xReGMoS9WHTDWaFilMa23SyHPC4&callback=initialize";
+
 $(document).ready(function () {
-  
-  carregar_doencas();
+
+  carregar_doencas();//carregando doenças no select
+
+  //quando clicar para selecionar a doença
   $("#selShowDoencas").click(function () {
     $(this).toggleClass("active");
     $("#selectDoencas").slideToggle(400);
   });
 
-  $("#divDoencas").mouseleave(function(){
-    if($(this).children().hasClass("active")){
+  //quando o mouse sair da seleção
+  $("#divDoencas").mouseleave(function () {
+    if ($(this).children().hasClass("active")) {
       $(this).children().trigger("click");
     }
   });
-  
 
+});
 
-/*
-   var doencas = $(".opDoencas:checked").map(function () {
-      return this.value;
-    }).get().join(",");
- */
+//quando clicar no botao pesquisar
+$("#btn_pesq").click(function () {
+  doencas = $(".opDoencas:checked").map(function () {
+    return this.value;
+  }).get().join(",");
 
+  if (doencas === "") {
+    alert("Nenhuma doença selecionada!");
+    return false;
+  }
+  carregar_mapa();
 });
 
 $(document).on("click", "li", function () {
@@ -38,26 +52,24 @@ $(document).on("click", "li", function () {
   }
 });
 
+function carregar_mapa() {
+  $("script[src='" + script.src + "']").remove();//removendo mapa
+  document.body.appendChild(script); //carregando o mapa
+}
+
 function carregar_doencas() {
-  $("#selectDoencas").append("<li><input type='checkbox' name='doencas' class='opDoenca' value='0'>TODAS<br></li>");
+  $("#selectDoencas").append("<li><input type='checkbox' name='doencas' class='opDoencas' value='0'>TODAS<br></li>");
   $.post(
     "./get_dados.php",
     {funcao: 1},
     function (data) {
       var json = $.parseJSON(data);
       $(json).each(function (i, val) {
-        $("#selectDoencas").append("<li><input type='checkbox' name='doencas' class='opDoenca' value=" + val.id + ">" + val.abrev + "<br></li>");
+        $("#selectDoencas").append("<li><input type='checkbox' name='doencas' class='opDoencas' value=" + val.id + ">" + val.abrev + "<br></li>");
       });
     }
   );
 }
-
-jQuery(function ($) {
-  // Asynchronously Load the map API 
-  var script = document.createElement('script');
-  script.src = "//maps.googleapis.com/maps/api/js?key=AIzaSyBzzVO9xReGMoS9WHTDWaFilMa23SyHPC4&callback=initialize";
-  document.body.appendChild(script);
-});
 
 function initialize() {
   var map;
@@ -69,31 +81,27 @@ function initialize() {
   map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
   map.setTilt(45);
 
-  // Multiple Markers
-  var markers = loadMarkers("dados.txt");
-
-  // Conteudo da janela, vai ser a ordem dos marcadores(acima)
-  var infoWindowContent = loadContent("conteudo.txt");
-
-  // Exibindo os marcadores
+  //carregando os marcadores
+  var marcadores = carregar_marcadores();
+  console.log(marcadores);
   var infoWindow = new google.maps.InfoWindow(), marker, i;
 
   // Posicionando cada marcador 
-  for (i = 0; i < markers.length; i++) {
-    var position = new google.maps.LatLng(parseFloat(markers[i][1]), parseFloat(markers[i][2]));
+  for (i = 0; i < marcadores.length; i++) {
+    
+    var position = new google.maps.LatLng(parseFloat(marcadores[i][1]), parseFloat(marcadores[i][2]));
     bounds.extend(position);
     marker = new google.maps.Marker({
       position: position,
-      //category: category,
       map: map,
-      title: markers[i][0]
+      title: marcadores[i][0]
     });
     marker.setIcon('../webroot/img/marcador.png');
 
     // Cada marcador tera uma janela  
     google.maps.event.addListener(marker, 'click', (function (marker, i) {
       return function () {
-	infoWindow.setContent("<div class='info_content'>" + infoWindowContent[i][0] + "</div>");
+	infoWindow.setContent("<div class='info_content'>" + marcadores[i][3] + "</div>");
 	infoWindow.open(map, marker);
       }
     })(marker, i));
@@ -109,51 +117,27 @@ function initialize() {
   });
 }
 
-/*filterMarkers = function (category) {
- for (i = 0; i < markers1.length; i++) {
- marker = gmarkers1[i];
- // If is same category or category not picked
- if (marker.category == category || category.length === 0) {
- marker.setVisible(true);
- }
- // Categories don't match 
- else {
- marker.setVisible(false);
- }
- }
- }*/
-
-function loadMarkers(file) {
-  var markers = [];
-  var temp = [];
-  var conteudo = readTextFile(file);
-  conteudo = conteudo.split("\n");
-  $(conteudo).each(function (i, val) {
-    temp = val.split(",");
-    markers.push(temp);
-  });
-  return markers;
-}
-
-function loadContent(file) {
-  var conteudoCaixa = [];
-  var conteudo = readTextFile(file).split("\n");
-
-  $(conteudo).each(function (i, val) {
-    conteudoCaixa.push([val]);
-  });
-  return conteudoCaixa;
-}
-
-function readTextFile(file) {
-  var allText
-  var rawFile = new XMLHttpRequest();
-  rawFile.open("GET", file, false);
-  rawFile.onreadystatechange = function () {
-    if (rawFile.readyState === 4 && (rawFile.status === 200 || rawFile.status == 0)) {
-      allText = rawFile.responseText;
-    }
-  }
-  rawFile.send(null);
-  return allText;
+function carregar_marcadores() {
+  var marcadores = [];
+  var cfixo = '<h3>:NOME</h3><div class="clearfix float-my-children" >' +
+	      '<img class="avatar" src="../webroot/img/:IMG"/>' + 
+	      '<p>SEXO::SEXO</p><p>CIDADE::CID</p>' + '<p>ENDEREÇO::END</p><p>DOENÇAS:DOE</p></div>';
+  var conteudo;
+  $.post({
+    url: "./get_dados.php",
+    data: {funcao: 2,doencas:doencas},
+    async : false
+  },function (data) {
+      var json = $.parseJSON(data);
+      $(json).each(function(i,val){
+	var marcador = [];
+	conteudo = cfixo;
+	conteudo = conteudo.replace(":NOME",val.nome).replace(":IMG",val.caminho_img).replace(":DOE",val.doencas);
+	conteudo = conteudo.replace(":SEXO",val.sexo).replace(":END",val.rua + ", " + val.num + ", " + val.complemento + 
+	        " " + val.bairro + ",<br>" + val.cidade);
+	marcador.push(val.nome,val.latitude,val.longitude,conteudo);
+	marcadores.push(marcador);
+      });
+    });
+  return marcadores;
 }

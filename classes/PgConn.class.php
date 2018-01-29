@@ -29,7 +29,7 @@
 	$result->execute();
 	if ($nquery) {
 	  $result = $result->rowCount();
-	  ;
+	  
 	}
 	else {
 	  $result = $result->fetchAll(PDO::FETCH_ASSOC);
