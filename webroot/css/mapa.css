@@ -69,11 +69,17 @@
 
 li {
   background:white;
-  cursor: pointer;
 }
 
 li:hover {
   background:grey;
+}
+
+ul,
+li{
+  list-style-type: none;
+  padding:0;
+  margin:0;
 }
 
 .btn {

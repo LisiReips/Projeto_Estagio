@@ -16,8 +16,8 @@ function get_pacientes(){
   
   $doencas = filter_input(INPUT_POST,'doencas',FILTER_SANITIZE_STRING);
   
-  $sql = "select p.caminho_img, p.nome, to_char(p.idade,'dd.mm.yyyy') idade, p.sexo, p.rua, p.num, p.complemento,
-    p.bairro, p.cep, c.nome cidade, p.latitude,p.longitude,
+  $sql = "select p.caminho_img, p.nome, to_char(p.idade,'dd.mm.yyyy') idade, p.sexo, p.rua, 
+    p.num, COALESCE(p.complemento,'') complemento, p.bairro, p.cep, c.nome cidade, p.latitude,p.longitude,
     array_agg(d.abrev) doencas
     from pacientes p
     join cidades c on c.id=p.id_cidades

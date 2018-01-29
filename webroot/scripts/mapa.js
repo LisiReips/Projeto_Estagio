@@ -25,6 +25,7 @@ $(document).ready(function () {
 
 //quando clicar no botao pesquisar
 $("#btn_pesq").click(function () {
+
   doencas = $(".opDoencas:checked").map(function () {
     return this.value;
   }).get().join(",");
@@ -83,7 +84,7 @@ function initialize() {
 
   //carregando os marcadores
   var marcadores = carregar_marcadores();
-  console.log(marcadores);
+  
   var infoWindow = new google.maps.InfoWindow(), marker, i;
 
   // Posicionando cada marcador 
@@ -121,7 +122,8 @@ function carregar_marcadores() {
   var marcadores = [];
   var cfixo = '<h3>:NOME</h3><div class="clearfix float-my-children" >' +
 	      '<img class="avatar" src="../webroot/img/:IMG"/>' + 
-	      '<p>SEXO::SEXO</p><p>CIDADE::CID</p>' + '<p>ENDEREÇO::END</p><p>DOENÇAS:DOE</p></div>';
+	      '<ul><li>SEXO::SEXO</li><li>IDADE::IDADE</li>' + 
+              '<li>CIDADE::CID</li>' + '<li>ENDEREÇO::END</li><p>DOENÇAS:DOE</li></ul></div>';
   var conteudo;
   $.post({
     url: "./get_dados.php",
@@ -132,10 +134,10 @@ function carregar_marcadores() {
       $(json).each(function(i,val){
 	var marcador = [];
 	conteudo = cfixo;
-	conteudo = conteudo.replace(":NOME",val.nome).replace(":IMG",val.caminho_img).replace(":DOE",val.doencas);
-	conteudo = conteudo.replace(":SEXO",val.sexo).replace(":END",val.rua + ", " + val.num + ", " + val.complemento + 
-	        " " + val.bairro + ",<br>" + val.cidade);
-	marcador.push(val.nome,val.latitude,val.longitude,conteudo);
+	conteudo = conteudo.replace(":NOME",val.nome).replace(":IMG",val.caminho_img).replace(":DOE",val.doencas).replace(":CID",val.cidade);
+	conteudo = conteudo.replace(":SEXO",val.sexo).replace(":END",val.rua + ", " + val.num + ", " + val.complemento + " " + val.bairro);
+	conteudo = conteudo.replace(":IDADE",val.idade);
+        marcador.push(val.nome,val.latitude,val.longitude,conteudo);
 	marcadores.push(marcador);
       });
     });
