@@ -2,8 +2,7 @@
 
 const DB_HOST = 'localhost';
 const DB_USER = 'postgres';
-const DB_PASS = 'raven';
-//const DB_PASS = 'PosTgr3$.C0tr1b@';
+const DB_PASS = 'PosTgr3$.C0tr1b@';
 const DB_NAME = 'teste';
 const DB_PORT = 5432;
 
