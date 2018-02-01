@@ -1,80 +1,37 @@
+/*CSS DO MAPA*/
 #map_canvas {
   width: 100%;
   height: 100%;
 }
 .float-my-children > * {
-    float:left;
-    margin-right:5px;
+  float:left;
+  margin-right:5px;
 }
 .clearfix {
-    *zoom:1 /* for IE */
+  zoom:1
 }
-
 .clearfix:before,
 .clearfix:after {
-    content: " ";
-    display: table;
+  content: " ";
+  display: table;
 }
-
 .clearfix:after {
-    clear: both;
+  clear: both;
 }
-
 #map_canvas{
-    border:1px dashed blue;
-    margin-bottom:10px;    
+  border:1px dashed blue;
+  margin-bottom:10px;    
 }
-
 .avatar{
   max-width: 100px;
   max-height: 100px;
 }
-
-#selDoencas{
-  width: 520px;
-}
-
-.inpEnt {
-  border-radius: 5px;
-  height:30px;
-  background-color: #FFFFFF;
-}
-
-#selShowDoencas{
-  display:inline-block;
-  position:relative; 
-  width:100%;
-}
-
-.selShow {
-  user-select : none;
-  -moz-user-select : none;
-  -webkit-user-select : none;
-  color: gray;
-  cursor: pointer;
-}
-
-.listSel {
-  display:none;
-  list-style-type: none;
-  position: absolute;
-  margin: 0;
-  padding: 0;
-  list-style-type:none;
-  height:150px;
-  overflow: auto;
-  z-index:3;
-  width: 522px;
-}
-
 li {
   background:white;
 }
-
 li:hover {
   background:grey;
 }
-
 ul,
 li{
   list-style-type: none;
@@ -82,48 +39,76 @@ li{
   margin:0;
 }
 
-.btn {
-  display: inline-block;
-  vertical-align: middle;
-  margin: 0 0 0.5rem 0;
-  padding: 0.85em 1em;
-  -webkit-appearance: none;
-  border: 1px solid transparent;
-  border-radius: 0;
-  transition: background-color 0.25s ease-out, color 0.25s ease-out;
-  font-size: 0.9rem;
-  line-height: 1;
-  text-align: center;
-  cursor: pointer;
-  background-color: #1779ba;
-  color: #fefefe; }
-[data-whatinput='mouse'] .btn {
-  outline: 0; }
-.btn:hover, .btn:focus {
-  background-color: #14679e;
-  color: #fefefe; }
-.btn.tiny {
-  font-size: 0.6rem; }
-.btn.small {
-  font-size: 0.75rem; }
-.btn.large {
-  font-size: 1.25rem; }
-button::-moz-focus-inner,
-[type="button"]::-moz-focus-inner,
-[type="reset"]::-moz-focus-inner,
-[type="submit"]::-moz-focus-inner {
-  border-style: none;
-  padding: 0; }
-button:-moz-focusring,
-[type="button"]:-moz-focusring,
-[type="reset"]:-moz-focusring,
-[type="submit"]:-moz-focusring {
-  outline: 1px dotted ButtonText; }
-
-@media(min-width: 1000px){
-
+/*CSS DOS FILTROS*/
+/* Style inputs, select elements and textareas */
+input[type=text], select, textarea{
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  resize: vertical;
 }
 
-@media(max-width: 1000px){
-  
+/* Style the label to display next to the inputs */
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+/* Style the submit button */
+
+input[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+/* Style the container */
+.container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+/* Floating column for labels: 25% width */
+.col-25 {
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+}
+
+/* Floating column for inputs: 75% width */
+.col-75 {
+  float: left;
+  width: 75%;
+  margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.botao{
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media (max-width: 600px) {
+  .col-25, .col-75, input[type=submit] {
+    width: 100%;
+    margin-top: 0;
+  }
 }

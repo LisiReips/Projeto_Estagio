@@ -23,10 +23,9 @@ function get_pacientes(){
     join cidades c on c.id=p.id_cidades
     join pacientes_doencas pd on pd.id_pacientes = p.id
     join doencas d on d.id = pd.id_doencas
-    WHERE (d.id IN ('" . $doencas . "') OR 0 = '" . $doencas . "')
+    WHERE (d.id IN (" . $doencas . ") OR 0 IN (" . $doencas . "))
     group by p.caminho_img, p.nome, p.idade, p.sexo, p.rua, p.num, p.complemento,
     p.bairro, p.cep, c.nome, p.latitude,p.longitude";
-
   
   $resultado = $conexao->executar($sql);
   $tam = count($resultado);

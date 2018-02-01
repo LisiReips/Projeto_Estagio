@@ -2,84 +2,42 @@
 var doencas = "";
 var marcadores = [];
 var map;
-var isFirst = true;
+
 $(document).ready(function () {
 
-  carregar_doencas();//carregando doenças no select
+  //carregando doenças no select
+  carregar_doencas();
 
   //carregando o mapa
   var script = document.createElement('script');
   script.src = "//maps.googleapis.com/maps/api/js?key=AIzaSyBzzVO9xReGMoS9WHTDWaFilMa23SyHPC4&callback=initialize";
   document.body.appendChild(script);
 
-  //quando clicar para selecionar a doença
-  $("#selShowDoencas").click(function () {
-    $(this).toggleClass("active");
-    $("#selectDoencas").slideToggle(400);
-  });
-
-  //quando o mouse sair da seleção
-  $("#divDoencas").mouseleave(function () {
-    if ($(this).children().hasClass("active")) {
-      $(this).children().trigger("click");
-    }
-  });
-
 });
 
-//quando clicar no botao pesquisar
-$("#btn_pesq").click(function () {
+$("#form_filtros").submit(function () {
 
-  doencas = $(".opDoencas:checked").map(function () {
-    return this.value;
-  }).get().join(",");
-
-  if (doencas === "") {
-    alert("Nenhuma doença selecionada!");
-    return false;
-  }
+  $("#filtros").hide();
+  $("#map_wrapper").show();
+  return false;
+  
   reload_marcadores();
 });
 
-$(document).on("click", "li", function () {
-  var ck = $(this).find('input:checkbox');
-
-  if (ck.attr("checked")) {
-    ck.attr("checked", false);
-  } else {
-    if (ck.val() == "0") {
-      $('.active').trigger("click");
-      $('.' + ck.attr("class")).each(function () {
-	$(this).attr("checked", false);
-      });
-    }
-    ck.attr("checked", true);
-  }
+$("#voltar").click(function(){
+  $("#map_wrapper").hide();
+  $("#filtros").show();
 });
 
 function carregar_doencas() {
-  $("#selectDoencas").append("<li><input type='checkbox' name='doencas' class='opDoencas' value='0'>TODAS<br></li>");
-  $.post(
-	  "./get_dados.php",
-	  {funcao: 1},
-	  function (data) {
-	    var json = $.parseJSON(data);
-	    $(json).each(function (i, val) {
-	      $("#selectDoencas").append("<li><input type='checkbox' name='doencas' class='opDoencas' value=" + val.id + ">" + val.abrev + "<br></li>");
-	    });
-	  }
-  );
+  
 }
 
 function setar_marcadores() {
   var bounds = new google.maps.LatLngBounds();
   var infoWindow = new google.maps.InfoWindow(), marker, i;
   var temp;
-  if(isFirst){
-    temp = [["INIT", -28.6315351, -53.0972222, '']];
-  }else{
-    temp = carregar_marcadores();
-  }
+  temp = carregar_marcadores();
 
   // Posicionando cada marcador 
   for (i = 0; i < temp.length; i++) {
@@ -88,7 +46,7 @@ function setar_marcadores() {
     bounds.extend(position);
     marker = new google.maps.Marker({
       position: position,
-      map: (isFirst)? null:map,
+      map: map,
       animation: google.maps.Animation.DROP,
       title: temp[i][0]
     });
@@ -136,10 +94,17 @@ function reload_marcadores() {
 }
 
 function carregar_marcadores() {
-  var cfixo = '<h3>:NOME</h3><div class="clearfix float-my-children" >' +
-	  '<img class="avatar" src="../webroot/img/:IMG"/>' +
-	  '<ul><li>SEXO::SEXO</li><li>IDADE::IDADE</li>' +
-	  '<li>CIDADE::CID</li>' + '<li>ENDEREÇO::END</li><p>DOENÇAS:DOE</li></ul></div>';
+  var cfixo = '<h3>:NOME</h3>' +
+	      '<div class="clearfix float-my-children" >' +
+	        '<img class="avatar" src="../webroot/img/:IMG"/>' +
+	        '<ul>' +
+		 '<li>SEXO::SEXO</li>' +
+		 '<li>IDADE::IDADE</li>' +
+	         '<li>CIDADE::CID</li>' +
+		 '<li>ENDEREÇO::END</li>' +
+		 '<li>DOENÇAS:DOE</li>' +
+		'</ul>' +
+	      '</div>';
   var conteudo;
   var temp = [];
   $.post({
