@@ -6,12 +6,14 @@
     $conexao = new PgConn();
 
     $procura = filter_input(INPUT_POST, 'procura', FILTER_SANITIZE_STRING);
-    $procura = strtoupper($procura);
-    
-    $sql = "select id,abrev from doencas
+    $procura = strtoupper(str_replace(' ', '%', $procura));
+
+    $sql = "select 0 as id, 'TODAS' as abrev 
+      union all 
+      select id,abrev from doencas
       where (nome like '%" . $procura . "%' or abrev like '%" . $procura . "%')
       order by 2";
-  
+
     $resultado = $conexao->executar($sql);
 
     echo json_encode($resultado);
@@ -22,7 +24,28 @@
 
     $procura = filter_input(INPUT_POST, 'procura', FILTER_SANITIZE_STRING);
 
-    $sql = "select id,nome from cidades where nome like '%" . $procura . "%' order by nome";
+    $sql = "select 0 as id, 'TODAS' as nome 
+      union all 
+      select id,nome from cidades where nome like '%" . $procura . "%' order by nome";
+    $resultado = $conexao->executar($sql);
+
+    echo json_encode($resultado);
+  }
+
+  function get_bairros() {
+    $conexao = new PgConn();
+
+    $cidades = filter_input(INPUT_POST, 'cidades', FILTER_SANITIZE_STRING);
+    $procura = filter_input(INPUT_POST, 'procura', FILTER_SANITIZE_STRING);
+    $procura = strtoupper(str_replace(' ', '%', $procura));
+
+    $sql = "
+      select 'TODOS' as bairro 
+      union all
+      select bairro 
+      from pacientes 
+      where (id_cidades IN (" . $cidades . ") OR 0 IN (" . $cidades . ")) and bairro like '%" . $procura . "%'";
+
     $resultado = $conexao->executar($sql);
 
     echo json_encode($resultado);
@@ -31,33 +54,47 @@
   function get_pacientes() {
     $conexao = new PgConn();
 
-    $doencas = filtrar_array('doencas');
-    $cidades = filtrar_array('cidades');
-    $bairros = filtrar_array('bairros');
+    $doencas = filter_input(INPUT_POST, 'doencas', FILTER_SANITIZE_STRING);
+    $cidades = filter_input(INPUT_POST, 'cidades', FILTER_SANITIZE_STRING);
+    $bairros = filter_input(INPUT_POST, 'bairros', FILTER_SANITIZE_STRING);
     $idade = filter_input(INPUT_POST, 'idade', FILTER_SANITIZE_STRING);
     $sexo = filter_input(INPUT_POST, 'sexo', FILTER_SANITIZE_STRING);
 
-     echo json_encode([]);
-    /*
-      $sql = "select p.caminho_img, p.nome, to_char(p.idade,'dd.mm.yyyy') idade, p.sexo, p.rua,
+    if (!$doencas) {
+      echo json_encode([]);
+    }
+    else {
+      $idade = explode(",", $idade);
+      $bairros = str_replace("&#39;", "'", $bairros);
+
+      $sql = "SELECT p.caminho_img, p.nome, to_char(p.idade,'dd.mm.yyyy') idade, p.sexo, p.rua,
       p.num, COALESCE(p.complemento,'') complemento, p.bairro, p.cep, c.nome cidade, p.latitude,p.longitude,
       array_agg(d.abrev) doencas
-      from pacientes p
-      join cidades c on c.id=p.id_cidades
-      join pacientes_doencas pd on pd.id_pacientes = p.id
-      join doencas d on d.id = pd.id_doencas
+      FROM pacientes p
+      JOIN cidades c on c.id = p.id_cidades
+      JOIN pacientes_doencas pd on pd.id_pacientes = p.id
+      JOIN doencas d on d.id = pd.id_doencas
       WHERE (d.id IN (" . $doencas . ") OR 0 IN (" . $doencas . "))
-      group by p.caminho_img, p.nome, p.idade, p.sexo, p.rua, p.num, p.complemento,
-      p.bairro, p.cep, c.nome, p.latitude,p.longitude";
+	AND (p.id_cidades IN (" . $cidades . ") OR 0 IN (" . $cidades . "))
+	AND (p.bairro IN (" . $bairros . ") OR 'TODOS' IN (" . $bairros . "))
+	AND (p.sexo = '" . $sexo . "' OR 'A' = '" . $sexo . "')";
+
+      if (isset($idade[1])) {
+	$sql .= " AND(2018 - cast(to_char(idade,'yyyy') as integer) BETWEEN " . $idade[0] . " AND " . $idade[1] . ")";
+      }
+      $sql .= "GROUP BY p.caminho_img, p.nome, p.idade, p.sexo, p.rua, p.num, p.complemento,
+      p.bairro, p.cep, c.nome, p.latitude,p.longitude
+      ORDER BY P.NOME";
 
       $resultado = $conexao->executar($sql);
       $tam = count($resultado);
 
       for ($i = 0; $i < $tam; $i++) {
-      $resultado[$i]['idade'] = converter_idade($resultado[$i]['idade']);
+	$resultado[$i]['idade'] = converter_idade($resultado[$i]['idade']);
       }
 
-      echo json_encode($resultado); */
+      echo json_encode($resultado);
+    }
   }
 
   function converter_idade($data) {
@@ -72,23 +109,15 @@
     return $idade;
   }
 
-  function filtrar_array($var) {
-    if (isset($_POST[$var])) {
-      $temp = $_POST[$var];
-      if (is_array($temp)) {
-	return $temp;
-      }
-    }
-    return false;
-  }
-
   $funcao = filter_input(INPUT_POST, 'funcao', FILTER_SANITIZE_NUMBER_INT);
   switch ($funcao) {
     case 1: get_doencas();
       break;
     case 2: get_cidades();
       break;
-    case 3: get_pacientes();
+    case 3: get_bairros();
+      break;
+    case 4: get_pacientes();
       break;
     default: "";
   }

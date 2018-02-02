@@ -72,6 +72,40 @@ $(document).ready(function () {
     }
   });
 
+  $('#bairros').select2({
+    placeholder: "SELECIONE OS BAIRROS",
+    minimumInputLength: 3,
+    maximumResultsForSearch: 15,
+    ajax: {
+      url: './get_dados.php',
+      dataType: 'json',
+      type: 'POST',
+      quietMillis: 50,
+      data: function (params) {
+	var query = {
+	  procura: params.term,
+	  funcao: 3,
+	  cidades: $("#cidades").val().join(",")
+	};
+	return query;
+      },
+      processResults: function (data) {
+	var arr = [];
+	$(data).each(function (i,val) {
+	  arr.push({
+	    id: "'" + val.bairro + "'",
+	    text: val.bairro
+	  });
+	});
+	return { results: arr };
+      }
+    }
+  });
+
+  $("#cidades").change(function(){
+    $("#bairros").empty();
+  });
+
   //carregando o mapa
   var script = document.createElement('script');
   script.src = "//maps.googleapis.com/maps/api/js?key=AIzaSyBzzVO9xReGMoS9WHTDWaFilMa23SyHPC4&callback=initialize";
@@ -79,9 +113,11 @@ $(document).ready(function () {
 
 });
 
+/*
 $('select').on('select2:open', function(e) {
     $('.select2-search input').prop('focus',false);
 });
+ */
 
 $("#form_filtros").submit(function () {
   reload_marcadores();
@@ -94,20 +130,6 @@ $("#voltar").click(function () {
   $("#map_wrapper").hide();
   $("#filtros").show();
 });
-
-function carregar_cidades() {
-  $("#cidades").append($("<option>").attr("value", "-1").text("TODAS"));
-  $.post(
-	  "./get_dados.php",
-	  {funcao: 2},
-	  function (data) {
-	    var json = $.parseJSON(data);
-	    $(json).each(function (i, val) {
-	      $("#cidades").append($("<option>").attr("value", val.id).text(val.nome));
-	    });
-	  }
-  );
-}
 
 function setar_marcadores() {
   var bounds = new google.maps.LatLngBounds();
@@ -191,7 +213,8 @@ function carregar_marcadores() {
   var temp = [];
   $.post({
     url: "./get_dados.php",
-    data: {funcao: 3, doencas: doencas, cidades: cidades, bairros: bairros, idade: idade, sexo: sexo},
+    data: {funcao: 4, doencas: doencas.join(","), cidades: cidades.join(","), 
+      bairros: bairros.join(","), idade: idade, sexo: sexo},
     async: false
   }, function (data) {
     marcadores = [];

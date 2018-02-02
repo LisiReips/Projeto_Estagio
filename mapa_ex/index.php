@@ -54,10 +54,10 @@
 	    <select id="idade" class="js-example-basic-single" name="idades" required>
 	      <option value="0">TODAS AS IDADES</option>
 	      <option value="0,10">ATÈ 10 ANOS</option>
-	      <option value="10,20">10 à 20</option>
-	      <option value="20,30">20 à 30</option>
-	      <option value="30,40">30 à 40</option>
-	      <option value="40,50">40 à 50</option>
+	      <option value="11,20">11 à 20</option>
+	      <option value="21,30">21 à 30</option>
+	      <option value="31,40">31 à 40</option>
+	      <option value="41,50">41 à 50</option>
 	      <option value="50,200">MAIOR DE 50</option>
 	    </select>
 	  </div>
@@ -69,9 +69,9 @@
 	  </div>
 	  <div class="col-75">
 	    <select id="sexo" class="js-example-basic-single" name="sexo" required>
-	      <option value="0">AMBOS</option>
-	      <option value="0,10">MASCULINO</option>
-	      <option value="10,20">FEMININO</option>
+	      <option value="A">AMBOS</option>
+	      <option value="M">MASCULINO</option>
+	      <option value="F">FEMININO</option>
 	    </select>
 	  </div>
 	</div>
