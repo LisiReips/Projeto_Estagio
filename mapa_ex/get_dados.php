@@ -60,14 +60,10 @@
     $idade = filter_input(INPUT_POST, 'idade', FILTER_SANITIZE_STRING);
     $sexo = filter_input(INPUT_POST, 'sexo', FILTER_SANITIZE_STRING);
 
-    if (!$doencas) {
-      echo json_encode([]);
-    }
-    else {
-      $idade = explode(",", $idade);
-      $bairros = str_replace("&#39;", "'", $bairros);
+    $idade = explode(",", $idade);
+    $bairros = str_replace("&#39;", "'", $bairros);
 
-      $sql = "SELECT p.caminho_img, p.nome, to_char(p.idade,'dd.mm.yyyy') idade, p.sexo, p.rua,
+    $sql = "SELECT p.caminho_img, p.nome, to_char(p.idade,'dd.mm.yyyy') idade, p.sexo, p.rua,
       p.num, COALESCE(p.complemento,'') complemento, p.bairro, p.cep, c.nome cidade, p.latitude,p.longitude,
       array_agg(d.abrev) doencas
       FROM pacientes p
@@ -79,22 +75,21 @@
 	AND (p.bairro IN (" . $bairros . ") OR 'TODOS' IN (" . $bairros . "))
 	AND (p.sexo = '" . $sexo . "' OR 'A' = '" . $sexo . "')";
 
-      if (isset($idade[1])) {
-	$sql .= " AND(2018 - cast(to_char(idade,'yyyy') as integer) BETWEEN " . $idade[0] . " AND " . $idade[1] . ")";
-      }
-      $sql .= "GROUP BY p.caminho_img, p.nome, p.idade, p.sexo, p.rua, p.num, p.complemento,
-      p.bairro, p.cep, c.nome, p.latitude,p.longitude
-      ORDER BY P.NOME";
-
-      $resultado = $conexao->executar($sql);
-      $tam = count($resultado);
-
-      for ($i = 0; $i < $tam; $i++) {
-	$resultado[$i]['idade'] = converter_idade($resultado[$i]['idade']);
-      }
-
-      echo json_encode($resultado);
+    if (isset($idade[1])) {
+      $sql .= " AND(2018 - cast(to_char(idade,'yyyy') as integer) BETWEEN " . $idade[0] . " AND " . $idade[1] . ")";
     }
+    $sql .= ' GROUP BY p.caminho_img, p.nome, p.idade, p.sexo, p.rua, p.num, p.complemento,
+      p.bairro, p.cep, c.nome, p.latitude,p.longitude
+      ORDER BY P.NOME';
+
+    $resultado = $conexao->executar($sql);
+    $tam = count($resultado);
+
+    for ($i = 0; $i < $tam; $i++) {
+      $resultado[$i]['idade'] = converter_idade($resultado[$i]['idade']);
+    }
+
+    echo json_encode($resultado);
   }
 
   function converter_idade($data) {

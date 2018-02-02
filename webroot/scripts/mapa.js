@@ -1,7 +1,7 @@
 //variaveis globais
 var marcadores = [];
 var map;
-
+var isFirst = true;
 $(document).ready(function () {
 
   $('select').select2();
@@ -135,7 +135,11 @@ function setar_marcadores() {
   var bounds = new google.maps.LatLngBounds();
   var infoWindow = new google.maps.InfoWindow(), marker, i;
   var temp;
-  temp = carregar_marcadores();
+  if(isFirst){
+    temp = [["INIT", -28.6315351, -53.0972222, '']];
+  }else{
+    temp = carregar_marcadores();
+  }
 
   // Posicionando cada marcador 
   for (i = 0; i < temp.length; i++) {
