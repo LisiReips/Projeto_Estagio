@@ -1,6 +1,7 @@
 <?php require '../mainfile.php'; ?>
 <html>
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="<?= IMG . 'icone.ico'; ?>" >
     <title>Mapa Pacientes</title>
     
@@ -13,7 +14,7 @@
   </head>
   <body>
     
-    <div class="container"  id="filtros">
+    <div class="container"  id="filtros" style="display:none;"s>
       <form id="form_filtros">
 	
 	<div class="row">
@@ -83,7 +84,7 @@
       </form>
     </div>
 
-    <div id="map_wrapper" style="display:none;">
+    <div id="map_wrapper" >
       <button id="voltar" class="botao">FILTROS</button>
       <div id="map_canvas" class="mapping"></div>
     </div>
