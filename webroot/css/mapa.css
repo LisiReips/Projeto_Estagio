@@ -99,11 +99,15 @@ label {
 
 .select2{
   max-width: 100%;
+  min-width: 100%;
 }
 
 @media (max-width: 600px) {
   .col-25, .col-75, input[type=submit] {
     width: 100%;
     margin-top: 0;
+  }
+  .select2{
+    min-width: auto;
   }
 }

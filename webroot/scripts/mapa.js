@@ -4,7 +4,42 @@ var map;
 var isFirst = true;
 $(document).ready(function () {
 
-  $('select').select2();
+  $("#cidades").change(function(){
+    $("#bairros").empty();
+  });
+
+  //carregando o mapa
+  var script = document.createElement('script');
+  script.src = "//maps.googleapis.com/maps/api/js?key=AIzaSyBzzVO9xReGMoS9WHTDWaFilMa23SyHPC4&callback=initialize";
+  document.body.appendChild(script);
+
+});
+
+/*
+$('select').on('select2:open', function(e) {
+    $('.select2-search input').prop('focus',false);
+});
+ */
+
+$("#form_filtros").submit(function () {
+  reload_marcadores();
+  $("#filtros").hide();
+  $("#map_wrapper").show();
+  return false;
+});
+
+$("#voltar").click(function () {
+  $("#map_wrapper").hide();
+  $("#filtros").show();
+  
+  if(isFirst){
+    preparar_filtros();
+  }
+  
+});
+
+function preparar_filtros(){
+    $('select').select2();
 
   $('#doencas').select2({
     placeholder: "SELECIONE AS DOENÇAS",
@@ -101,35 +136,7 @@ $(document).ready(function () {
       }
     }
   });
-
-  $("#cidades").change(function(){
-    $("#bairros").empty();
-  });
-
-  //carregando o mapa
-  var script = document.createElement('script');
-  script.src = "//maps.googleapis.com/maps/api/js?key=AIzaSyBzzVO9xReGMoS9WHTDWaFilMa23SyHPC4&callback=initialize";
-  document.body.appendChild(script);
-
-});
-
-/*
-$('select').on('select2:open', function(e) {
-    $('.select2-search input').prop('focus',false);
-});
- */
-
-$("#form_filtros").submit(function () {
-  reload_marcadores();
-  $("#filtros").hide();
-  $("#map_wrapper").show();
-  return false;
-});
-
-$("#voltar").click(function () {
-  $("#map_wrapper").hide();
-  $("#filtros").show();
-});
+}
 
 function setar_marcadores() {
   var bounds = new google.maps.LatLngBounds();
@@ -148,7 +155,7 @@ function setar_marcadores() {
     bounds.extend(position);
     marker = new google.maps.Marker({
       position: position,
-      map: map,
+      map: (isFirst)? null:map,
       animation: google.maps.Animation.DROP,
       title: temp[i][0]
     });
