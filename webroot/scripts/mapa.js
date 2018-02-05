@@ -1,75 +1,135 @@
 //variaveis globais
-var doencas = "";
 var marcadores = [];
 var map;
 var isFirst = true;
 $(document).ready(function () {
 
-  carregar_doencas();//carregando doenças no select
+  $('select').select2();
+
+  $('#doencas').select2({
+    placeholder: "SELECIONE AS DOENÇAS",
+    minimumInputLength: 2,
+    maximumResultsForSearch: 15,
+    ajax: {
+      url: './get_dados.php',
+      dataType: 'json',
+      type: 'POST',
+      quietMillis: 50,
+      data: function (params) {
+	var query = {
+	  procura: params.term,
+	  funcao: 1
+	};
+	return query;
+      },
+      processResults: function (data) {
+	var arr = [];
+	$(data).each(function (i,val) {
+	  arr.push({
+	    id: val.id,
+	    text: val.abrev
+	  });
+	});
+	return { results: arr };
+      }
+    }
+  });
+
+  $('#idades').select2({
+    placeholder: "SELECIONE A IDADE"
+  });
+
+  $('#bairros').select2({
+    placeholder: "SELECIONE OS BAIRROS"
+  });
+
+  $('#cidades').select2({
+    placeholder: "SELECIONE AS CIDADES",
+    minimumInputLength: 3,
+    maximumResultsForSearch: 15,
+    ajax: {
+      url: './get_dados.php',
+      dataType: 'json',
+      type: 'POST',
+      quietMillis: 50,
+      data: function (params) {
+	var query = {
+	  procura: params.term,
+	  funcao: 2
+	};
+	return query;
+      },
+      processResults: function (data) {
+	var arr = [];
+	$(data).each(function (i,val) {
+	  arr.push({
+	    id: val.id,
+	    text: val.nome
+	  });
+	});
+	return { results: arr };
+      }
+    }
+  });
+
+  $('#bairros').select2({
+    placeholder: "SELECIONE OS BAIRROS",
+    minimumInputLength: 3,
+    maximumResultsForSearch: 15,
+    ajax: {
+      url: './get_dados.php',
+      dataType: 'json',
+      type: 'POST',
+      quietMillis: 50,
+      data: function (params) {
+	var query = {
+	  procura: params.term,
+	  funcao: 3,
+	  cidades: $("#cidades").val().join(",")
+	};
+	return query;
+      },
+      processResults: function (data) {
+	var arr = [];
+	$(data).each(function (i,val) {
+	  arr.push({
+	    id: "'" + val.bairro + "'",
+	    text: val.bairro
+	  });
+	});
+	return { results: arr };
+      }
+    }
+  });
+
+  $("#cidades").change(function(){
+    $("#bairros").empty();
+  });
 
   //carregando o mapa
   var script = document.createElement('script');
   script.src = "//maps.googleapis.com/maps/api/js?key=AIzaSyBzzVO9xReGMoS9WHTDWaFilMa23SyHPC4&callback=initialize";
   document.body.appendChild(script);
 
-  //quando clicar para selecionar a doença
-  $("#selShowDoencas").click(function () {
-    $(this).toggleClass("active");
-    $("#selectDoencas").slideToggle(400);
-  });
-
-  //quando o mouse sair da seleção
-  $("#divDoencas").mouseleave(function () {
-    if ($(this).children().hasClass("active")) {
-      $(this).children().trigger("click");
-    }
-  });
-
 });
 
-//quando clicar no botao pesquisar
-$("#btn_pesq").click(function () {
+/*
+$('select').on('select2:open', function(e) {
+    $('.select2-search input').prop('focus',false);
+});
+ */
 
-  doencas = $(".opDoencas:checked").map(function () {
-    return this.value;
-  }).get().join(",");
-
-  if (doencas === "") {
-    alert("Nenhuma doença selecionada!");
-    return false;
-  }
+$("#form_filtros").submit(function () {
   reload_marcadores();
+  $("#filtros").hide();
+  $("#map_wrapper").show();
+  return false;
 });
 
-$(document).on("click", "li", function () {
-  var ck = $(this).find('input:checkbox');
-
-  if (ck.attr("checked")) {
-    ck.attr("checked", false);
-  } else {
-    if (ck.val() == "0") {
-      $('.active').trigger("click");
-      $('.' + ck.attr("class")).each(function () {
-	$(this).attr("checked", false);
-      });
-    }
-    ck.attr("checked", true);
-  }
+$("#voltar").click(function () {
+  $("#map_wrapper").hide();
+  $("#filtros").show();
 });
-
-function carregar_doencas() {
-  $("#selectDoencas").append("<li><input type='checkbox' name='doencas' class='opDoencas' value='0'>TODAS<br></li>");
-  $.post(
-	  "./get_dados.php",
-	  {funcao: 1},
-	  function (data) {
-	    var json = $.parseJSON(data);
-	    $(json).each(function (i, val) {
-	      $("#selectDoencas").append("<li><input type='checkbox' name='doencas' class='opDoencas' value=" + val.id + ">" + val.abrev + "<br></li>");
-	    });
-	  }
-  );
-}
 
 function setar_marcadores() {
   var bounds = new google.maps.LatLngBounds();
@@ -88,7 +148,7 @@ function setar_marcadores() {
     bounds.extend(position);
     marker = new google.maps.Marker({
       position: position,
-      map: (isFirst)? null:map,
+      map: map,
       animation: google.maps.Animation.DROP,
       title: temp[i][0]
     });
@@ -101,13 +161,13 @@ function setar_marcadores() {
 	infoWindow.open(map, marker);
       }
     })(marker, i));
-    
+
     // Centra o mapa automaticamente
     map.fitBounds(bounds);
     // array com os marcadores atuais
     marcadores.push(marker);
   }
-  
+
   // Override our map zoom level once our fitBounds function runs (Make sure it only runs once)
   var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function (event) {
     this.setZoom(12);
@@ -127,36 +187,50 @@ function initialize() {
 }
 
 function reload_marcadores() {
-    for (var i = 0; i < marcadores.length; i++) {
-      marcadores[i].setMap(null);
-    }
-    isFirst = false;
-    marcadores = [];
-    setar_marcadores();
+  for (var i = 0; i < marcadores.length; i++) {
+    marcadores[i].setMap(null);
+  }
+  isFirst = false;
+  marcadores = [];
+  setar_marcadores();
 }
 
 function carregar_marcadores() {
-  var cfixo = '<h3>:NOME</h3><div class="clearfix float-my-children" >' +
+  var doencas = $("#doencas").val();
+  var cidades = $("#cidades").val();
+  var bairros = $("#bairros").val();
+  var idade = $("#idade").val();
+  var sexo = $("#sexo").val();
+
+  var cfixo = '<h3>:NOME</h3>' +
+	  '<div class="clearfix float-my-children" >' +
 	  '<img class="avatar" src="../webroot/img/:IMG"/>' +
-	  '<ul><li>SEXO::SEXO</li><li>IDADE::IDADE</li>' +
-	  '<li>CIDADE::CID</li>' + '<li>ENDEREÇO::END</li><p>DOENÇAS:DOE</li></ul></div>';
+	  '<ul>' +
+	  '<li>SEXO::SEXO</li>' +
+	  '<li>IDADE::IDADE</li>' +
+	  '<li>CIDADE::CID</li>' +
+	  '<li>ENDEREÇO::END</li>' +
+	  '<li>DOENÇAS:DOE</li>' +
+	  '</ul>' +
+	  '</div>';
   var conteudo;
   var temp = [];
   $.post({
     url: "./get_dados.php",
-    data: {funcao: 2, doencas: doencas},
+    data: {funcao: 4, doencas: doencas.join(","), cidades: cidades.join(","), 
+      bairros: bairros.join(","), idade: idade, sexo: sexo},
     async: false
   }, function (data) {
     marcadores = [];
     var json = $.parseJSON(data);
     $(json).each(function (i, val) {
       var marcador = [];
-      
+
       conteudo = cfixo;
       conteudo = conteudo.replace(":NOME", val.nome).replace(":IMG", val.caminho_img).replace(":DOE", val.doencas).replace(":CID", val.cidade);
       conteudo = conteudo.replace(":SEXO", val.sexo).replace(":END", val.rua + ", " + val.num + ", " + val.complemento + " " + val.bairro);
       conteudo = conteudo.replace(":IDADE", val.idade);
-      
+
       marcador.push(val.nome, val.latitude, val.longitude, conteudo);
       temp.push(marcador);
     });
