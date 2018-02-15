@@ -4,21 +4,21 @@ var map;
 var isFirst = true;
 $(document).ready(function () {
 
-  $("#cidades").change(function(){
+  $("#cidades").change(function () {
     $("#bairros").empty();
   });
 
   //carregando o mapa
   var script = document.createElement('script');
-  script.src = "//maps.googleapis.com/maps/api/js?key=AIzaSyBzzVO9xReGMoS9WHTDWaFilMa23SyHPC4&callback=initialize";
+  script.src = "//maps.googleapis.com/maps/api/js?key=AIzaSyCKxBgMAn1khyrbRgxMYDTCDQY0e1BKpKE&callback=initialize";
   document.body.appendChild(script);
 
 });
 
 /*
-$('select').on('select2:open', function(e) {
-    $('.select2-search input').prop('focus',false);
-});
+ $('select').on('select2:open', function(e) {
+ $('.select2-search input').prop('focus',false);
+ });
  */
 
 $("#form_filtros").submit(function () {
@@ -31,15 +31,15 @@ $("#form_filtros").submit(function () {
 $("#voltar").click(function () {
   $("#map_wrapper").hide();
   $("#filtros").show();
-  
-  if(isFirst){
+
+  if (isFirst) {
     preparar_filtros();
   }
-  
+
 });
 
-function preparar_filtros(){
-    $('select').select2();
+function preparar_filtros() {
+  $('select').select2();
 
   $('#doencas').select2({
     placeholder: "SELECIONE AS DOENÇAS",
@@ -51,21 +51,21 @@ function preparar_filtros(){
       type: 'POST',
       quietMillis: 50,
       data: function (params) {
-	var query = {
-	  procura: params.term,
-	  funcao: 1
-	};
-	return query;
+        var query = {
+          procura: params.term,
+          funcao: 1
+        };
+        return query;
       },
       processResults: function (data) {
-	var arr = [];
-	$(data).each(function (i,val) {
-	  arr.push({
-	    id: val.id,
-	    text: val.abrev
-	  });
-	});
-	return { results: arr };
+        var arr = [];
+        $(data).each(function (i, val) {
+          arr.push({
+            id: val.id,
+            text: val.abrev
+          });
+        });
+        return {results: arr};
       }
     }
   });
@@ -88,21 +88,21 @@ function preparar_filtros(){
       type: 'POST',
       quietMillis: 50,
       data: function (params) {
-	var query = {
-	  procura: params.term,
-	  funcao: 2
-	};
-	return query;
+        var query = {
+          procura: params.term,
+          funcao: 2
+        };
+        return query;
       },
       processResults: function (data) {
-	var arr = [];
-	$(data).each(function (i,val) {
-	  arr.push({
-	    id: val.id,
-	    text: val.nome
-	  });
-	});
-	return { results: arr };
+        var arr = [];
+        $(data).each(function (i, val) {
+          arr.push({
+            id: val.id,
+            text: val.nome
+          });
+        });
+        return {results: arr};
       }
     }
   });
@@ -117,22 +117,22 @@ function preparar_filtros(){
       type: 'POST',
       quietMillis: 50,
       data: function (params) {
-	var query = {
-	  procura: params.term,
-	  funcao: 3,
-	  cidades: $("#cidades").val().join(",")
-	};
-	return query;
+        var query = {
+          procura: params.term,
+          funcao: 3,
+          cidades: $("#cidades").val().join(",")
+        };
+        return query;
       },
       processResults: function (data) {
-	var arr = [];
-	$(data).each(function (i,val) {
-	  arr.push({
-	    id: "'" + val.bairro + "'",
-	    text: val.bairro
-	  });
-	});
-	return { results: arr };
+        var arr = [];
+        $(data).each(function (i, val) {
+          arr.push({
+            id: "'" + val.bairro + "'",
+            text: val.bairro
+          });
+        });
+        return {results: arr};
       }
     }
   });
@@ -142,9 +142,9 @@ function setar_marcadores() {
   var bounds = new google.maps.LatLngBounds();
   var infoWindow = new google.maps.InfoWindow(), marker, i;
   var temp;
-  if(isFirst){
-    temp = [["INIT", -28.6315351, -53.0972222, '']];
-  }else{
+  if (isFirst) {
+    temp = [["INIT", -28.6324149, -53.0905275, '']];
+  } else {
     temp = carregar_marcadores();
   }
 
@@ -155,7 +155,7 @@ function setar_marcadores() {
     bounds.extend(position);
     marker = new google.maps.Marker({
       position: position,
-      map: (isFirst)? null:map,
+      map: map,
       animation: google.maps.Animation.DROP,
       title: temp[i][0]
     });
@@ -164,22 +164,32 @@ function setar_marcadores() {
     // Cada marcador tera uma janela  
     google.maps.event.addListener(marker, 'click', (function (marker, i) {
       return function () {
-	infoWindow.setContent("<div class='info_content'>" + temp[i][3] + "</div>");
-	infoWindow.open(map, marker);
+        infoWindow.setContent("<div class='info_content'>" + temp[i][3] + "</div>");
+        infoWindow.open(map, marker);
       }
     })(marker, i));
 
-    // Centra o mapa automaticamente
-    map.fitBounds(bounds);
     // array com os marcadores atuais
     marcadores.push(marker);
   }
+  
+  // Evitar zoom em um marcador unico
+  if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
+    var extendPoint1 = new google.maps.LatLng(bounds.getNorthEast().lat() + 0.01, bounds.getNorthEast().lng() + 0.01);
+    var extendPoint2 = new google.maps.LatLng(bounds.getNorthEast().lat() - 0.01, bounds.getNorthEast().lng() - 0.01);
+    bounds.extend(extendPoint1);
+    bounds.extend(extendPoint2);
+  }
+
+  // Centra o mapa automaticamente
+  map.fitBounds(bounds);
 
   // Override our map zoom level once our fitBounds function runs (Make sure it only runs once)
   var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function (event) {
-    this.setZoom(12);
+    this.setZoom(14);
     google.maps.event.removeListener(boundsListener);
   });
+
 }
 
 function initialize() {
@@ -210,21 +220,21 @@ function carregar_marcadores() {
   var sexo = $("#sexo").val();
 
   var cfixo = '<h3>:NOME</h3>' +
-	  '<div class="clearfix float-my-children" >' +
-	  '<img class="avatar" src="../webroot/img/:IMG"/>' +
-	  '<ul>' +
-	  '<li>SEXO::SEXO</li>' +
-	  '<li>IDADE::IDADE</li>' +
-	  '<li>CIDADE::CID</li>' +
-	  '<li>ENDEREÇO::END</li>' +
-	  '<li>DOENÇAS:DOE</li>' +
-	  '</ul>' +
-	  '</div>';
+          '<div class="clearfix float-my-children" >' +
+          '<img class="avatar" src="../webroot/img/:IMG"/>' +
+          '<ul>' +
+          '<li>SEXO::SEXO</li>' +
+          '<li>IDADE::IDADE</li>' +
+          '<li>CIDADE::CID</li>' +
+          '<li>ENDEREÇO::END</li>' +
+          '<li>DOENÇAS:DOE</li>' +
+          '</ul>' +
+          '</div>';
   var conteudo;
   var temp = [];
   $.post({
     url: "./get_dados.php",
-    data: {funcao: 4, doencas: doencas.join(","), cidades: cidades.join(","), 
+    data: {funcao: 4, doencas: doencas.join(","), cidades: cidades.join(","),
       bairros: bairros.join(","), idade: idade, sexo: sexo},
     async: false
   }, function (data) {
