@@ -143,7 +143,7 @@ function setar_marcadores() {
   var infoWindow = new google.maps.InfoWindow(), marker, i;
   var temp;
   if (isFirst) {
-    temp = [["INIT", -28.6324149, -53.0905275, '']];
+    temp = [["Clínica CIEMP", -28.6324149, -53.0905275, '']];
   } else {
     temp = carregar_marcadores();
   }
@@ -186,7 +186,7 @@ function setar_marcadores() {
 
   // Override our map zoom level once our fitBounds function runs (Make sure it only runs once)
   var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function (event) {
-    this.setZoom(14);
+    this.setZoom(15);
     google.maps.event.removeListener(boundsListener);
   });
 
@@ -223,11 +223,11 @@ function carregar_marcadores() {
           '<div class="clearfix float-my-children" >' +
           '<img class="avatar" src="../webroot/img/:IMG"/>' +
           '<ul>' +
-          '<li>SEXO::SEXO</li>' +
-          '<li>IDADE::IDADE</li>' +
-          '<li>CIDADE::CID</li>' +
-          '<li>ENDEREÇO::END</li>' +
-          '<li>DOENÇAS:DOE</li>' +
+          '<li>SEXO: :SEXO</li>' +
+          '<li>IDADE: :IDADE</li>' +
+          '<li>CIDADE: :CID</li>' +
+          '<li>ENDEREÇO: :END</li>' +
+          '<li>DOENÇAS: :DOE</li>' +
           '</ul>' +
           '</div>';
   var conteudo;

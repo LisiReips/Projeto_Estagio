@@ -2,8 +2,8 @@
 
 const DB_HOST = 'localhost';
 const DB_USER = 'postgres';
-const DB_PASS = 'raven';
-const DB_NAME = 'teste';
+const DB_PASS = '315218';
+const DB_NAME = 'db_pacientes';
 const DB_PORT = 5432;
 
 $url = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/Projeto_Estagio/';

@@ -87,9 +87,20 @@
 
     for ($i = 0; $i < $tam; $i++) {
       $resultado[$i]['idade'] = converter_idade($resultado[$i]['idade']);
+      $resultado[$i]['nome'] = converter_nome($resultado[$i]['nome']);
     }
-
+    
     echo json_encode($resultado);
+  }
+  
+  function converter_nome($nome){
+      $final = '';
+      $array = explode(' ',$nome);
+      foreach($array as $arr){
+          $final .= $arr[0] . '. ';
+      }
+      
+      return $final;
   }
 
   function converter_idade($data) {

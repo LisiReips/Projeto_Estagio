@@ -1,0 +1,4 @@
+alter table pacientes ADD CONSTRAINT unique_prontuario UNIQUE (prontuario)
+
+alter table pacientes add column email varchar(200);
+alter table pacientes add column telefone varchar(20);

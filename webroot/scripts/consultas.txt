@@ -1,0 +1,19 @@
+select p.nome, p.prontuario, pac.prontuario
+from pacientes p
+join pacientes pac on lower(p.nome) = lower(pac.nome) and p.prontuario != pac.prontuario
+
+select  distinct p.nome, p.prontuario
+from pacientes p
+
+select p.nome, p.email, p.telefone
+from pacientes p
+where email is null or telefone is null
+
+select p.nome, p.rua, p.num, p.complemento, p.bairro, p.cep, p.id_cidades as cidade
+from pacientes p
+where rua is null or num is null or complemento is null or bairro is null or cep is null or id_cidades is null
+
+select p.nome, COALESCE(p.email,'SEM EMAIL') as email, 
+COALESCE(p.telefone,'SEM TELEFONE') as telefone, to_char(p.idade,'dd/mm/yyyy') as data
+from pacientes p
+where p.idade between '1800-01-01' and '2018-01-01'
