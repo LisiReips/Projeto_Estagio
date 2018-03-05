@@ -13,3 +13,4 @@ define('CSS',     URL. 'webroot/css/');
 define('IMG',     URL. 'webroot/img/');
 
 require 'classes/PgConn.class.php';
+require 'classes/Email.class.php';
