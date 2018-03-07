@@ -3,7 +3,7 @@ var marcadores = [];
 var map;
 var isFirst = true;
 $(document).ready(function () {
-
+  
   $("#cidades").change(function () {
     $("#bairros").empty();
   });
@@ -13,11 +13,10 @@ $(document).ready(function () {
   script.src = "//maps.googleapis.com/maps/api/js?key=AIzaSyCKxBgMAn1khyrbRgxMYDTCDQY0e1BKpKE&callback=initialize";
   document.body.appendChild(script);
   
-});
-
-$("#link_filtros").click(function(){
-  alternar_filtros();
-  return false;
+  if(findGet('x') == "1"){
+    alternar_filtros();
+  }
+  
 });
 
 /*
@@ -144,6 +143,7 @@ function preparar_filtros() {
 }
 
 function setar_marcadores() {
+  console.log("B");
   var bounds = new google.maps.LatLngBounds();
   var infoWindow = new google.maps.InfoWindow(), marker, i;
   var temp;
@@ -214,6 +214,7 @@ function reload_marcadores() {
   }
   isFirst = false;
   marcadores = [];
+  console.log("A");
   setar_marcadores();
 }
 
@@ -259,6 +260,7 @@ function carregar_marcadores() {
   });
   return temp;
 }
+
 function findGet(name) {
   var $_GET = {};
   document.location.search.replace(/\??(?:([^=]+)=([^&]*)&?)/g, function () {

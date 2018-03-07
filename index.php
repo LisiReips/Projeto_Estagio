@@ -5,7 +5,7 @@
     <link rel="shortcut icon" href="<?= IMG . 'icone.ico'; ?>" >
     <title>Cliníca</title>
     
-    <script src="<?= SCRIPTS . 'jquery.js'; ?>"></script>
+    <script src="<?= SCRIPTS . 'jquery-2.2.4.min.js'; ?>"></script>
     <script src="<?= SCRIPTS . 'menus.js'; ?>"></script>
     <link href="<?= CSS . 'base.css'; ?>" type="text/css" rel="stylesheet">
 

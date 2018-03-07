@@ -5,7 +5,7 @@
     <link rel="shortcut icon" href="<?= IMG . 'icone.ico'; ?>" >
     <title>Mapa Pacientes</title>
 
-    <script src="<?= SCRIPTS . 'jquery.js'; ?>"></script>
+    <script src="<?= SCRIPTS . 'jquery-2.2.4.min.js'; ?>"></script>
     <script src="<?= SCRIPTS . 'select2.min.js'; ?>"></script>
     <script src="<?= SCRIPTS . 'menus.js'; ?>"></script>
 
@@ -17,7 +17,7 @@
   <body>
     <?= $barra_menus; ?>
     <div class="container"  id="filtros" style="display:none;">
-      <form id="form_filtros">
+      <form id="form_filtros" >
 
         <div class="row">
           <div class="col-25">
@@ -80,7 +80,7 @@
         </div>
 
         <div class="row">
-          <button class="btn submit" id="fbotao">PESQUISAR</button>
+          <button class="btn" id="fbotao">PESQUISAR</button>
         </div>
 
       </form>
