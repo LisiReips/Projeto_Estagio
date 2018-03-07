@@ -1,6 +1,6 @@
 <?php
-  require '../mainfile.php';
-  require '../classes/PHPExcel-1.8/Classes/PHPExcel.php';
+  require 'mainfile.php';
+  require 'classes/PHPExcel-1.8/Classes/PHPExcel.php';
 
   if (isset($_POST['pesquisa'])) {
     error_reporting(E_ALL);
@@ -76,11 +76,12 @@
     <script src="<?= SCRIPTS . 'jquery-3.3.1.min.js'; ?>"></script>
 
     <link href="<?= CSS . 'select2.min.css'; ?>" type="text/css" rel="stylesheet">
+    <script src="<?= SCRIPTS . 'menus.js'; ?>"></script>
     <link href="<?= CSS . 'base.css'; ?>" type="text/css" rel="stylesheet">
 
   </head>
   <body>
-
+    <?= $barra_menus; ?>
     <div class="container" id="filtros">
       <form id="form_filtros" method="POST" action="aniver.php">
 
