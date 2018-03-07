@@ -12,11 +12,12 @@ $(document).ready(function () {
   var script = document.createElement('script');
   script.src = "//maps.googleapis.com/maps/api/js?key=AIzaSyCKxBgMAn1khyrbRgxMYDTCDQY0e1BKpKE&callback=initialize";
   document.body.appendChild(script);
-
-  if(findGet("x") == "1"){
-    alternar_filtros();
-  }
   
+});
+
+$("#link_filtros").click(function(){
+  alternar_filtros();
+  return false;
 });
 
 /*
