@@ -81,7 +81,7 @@
 
   </head>
   <body>
-    <?= $barra_menus; ?>
+     <?= $barra_menus; ?>
     <div class="container" id="filtros">
       <form id="form_filtros" method="POST" action="aniver.php">
 

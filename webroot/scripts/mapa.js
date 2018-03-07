@@ -13,6 +13,10 @@ $(document).ready(function () {
   script.src = "//maps.googleapis.com/maps/api/js?key=AIzaSyCKxBgMAn1khyrbRgxMYDTCDQY0e1BKpKE&callback=initialize";
   document.body.appendChild(script);
 
+  if(findGet("x") == "1"){
+    alternar_filtros();
+  }
+  
 });
 
 /*
@@ -28,7 +32,7 @@ $("#form_filtros").submit(function () {
   return false;
 });
 
-$("#voltar").click(function () {
+function alternar_filtros() {
   $("#map_wrapper").hide();
   $("#filtros").show();
 
@@ -36,7 +40,7 @@ $("#voltar").click(function () {
     preparar_filtros();
   }
 
-});
+};
 
 function preparar_filtros() {
   $('select').select2();
@@ -222,12 +226,12 @@ function carregar_marcadores() {
   var cfixo = '<h3>:NOME</h3>' +
           '<div class="clearfix float-my-children" >' +
           '<img class="avatar" src="../webroot/img/:IMG"/>' +
-          '<ul>' +
-          '<li>SEXO: :SEXO</li>' +
-          '<li>IDADE: :IDADE</li>' +
-          '<li>CIDADE: :CID</li>' +
-          '<li>ENDEREÇO: :END</li>' +
-          '<li>DOENÇAS: :DOE</li>' +
+          '<ul class="ul">' +
+          '<li class="li">SEXO: :SEXO</li>' +
+          '<li class="li">IDADE: :IDADE</li>' +
+          '<li class="li">CIDADE: :CID</li>' +
+          '<li class="li">ENDEREÇO: :END</li>' +
+          '<li class="li">DOENÇAS: :DOE</li>' +
           '</ul>' +
           '</div>';
   var conteudo;
@@ -253,4 +257,14 @@ function carregar_marcadores() {
     });
   });
   return temp;
+}
+function findGet(name) {
+  var $_GET = {};
+  document.location.search.replace(/\??(?:([^=]+)=([^&]*)&?)/g, function () {
+    function decode(s) {
+      return decodeURIComponent(s.split("+").join(" "));
+    }
+    $_GET[decode(arguments[1])] = decode(arguments[2]);
+  });
+  return $_GET[name];
 }

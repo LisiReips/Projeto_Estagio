@@ -1,15 +1,16 @@
 body {
-   background-color: #98FB98; 
+   background-color: #98FB98;
+   margin: 0;
 }
-a{
+.a{
     text-decoration: none;
     color: white;
 }
-li {
+.li {
   background:white;
 }
-ul,
-li{
+.ul,
+.li{
   list-style-type: none;
   padding:0;
   margin:0;
@@ -29,7 +30,7 @@ input[type=date]{
    padding: 5px;
 }
 
-label {
+.label {
   padding: 12px 12px 12px 0;
   display: inline-block;
 }
@@ -69,15 +70,6 @@ label {
   content: "";
   display: table;
   clear: both;
-}
-
-.botao{
-  background-color: #4CAF50;
-  color: white;
-  padding: 5px 10px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
 }
 
 @media (max-width: 600px) {
@@ -121,30 +113,35 @@ label {
 #cssmenu {
   width: auto;
   border: 3px solid #fd8a17;
-  border-radius: 3px;
+  background: #f7f7f7;
   font-family: 'Oswald', sans-serif;
   line-height: 1;
-  background: #f7f7f7;
   box-shadow: 1px 1px 0 #df7002, 2px 2px 0 #df7002, 3px 3px 3px rgba(0, 0, 0, 0.35);
 }
-#cssmenu > ul {
+#cssmenu > ul,
+#cssmenu > ul > li > ul{
   background: url('../img/bg.png');
 }
-#cssmenu > ul > li {
+#cssmenu > ul > li,
+#cssmenu > ul > li > ul > li > a{
   float: left;
 }
-#cssmenu.align-center > ul {
+#cssmenu.align-center > ul,
+#cssmenu.align-center > ul > li > ul{
   font-size: 0;
   text-align: center;
 }
-#cssmenu.align-center > ul > li {
+#cssmenu.align-center > ul > li,
+#cssmenu.align-center > ul > li > ul > li{
   display: inline-block;
   float: none;
 }
-#cssmenu.align-right > ul > li {
+#cssmenu.align-right > ul > li,
+#cssmenu.align-right > ul > li > ul > li{
   float: right;
 }
-#cssmenu > ul > li > a {
+#cssmenu > ul > li > a,
+#cssmenu > ul > li > ul > li > a{
   padding: 20px 25px;
   font-size: 14px;
   text-transform: uppercase;
@@ -158,8 +155,11 @@ label {
 }
 #cssmenu > ul > li > a:hover,
 #cssmenu > ul > li:hover > a,
-#cssmenu > ul > li.active > a {
-  background-color: #444444;
+#cssmenu > ul > li.active > a,
+#cssmenu > ul > li > ul > li > a:hover,
+#cssmenu > ul > li > ul > li:hover > a,
+#cssmenu > ul > li > ul > li.active > a{
+  color: #444444;
 }
 #cssmenu #menu-indicator {
   position: absolute;

@@ -21,7 +21,7 @@
 
         <div class="row">
           <div class="col-25">
-            <label>DOENÇAS</label>
+            <label class="label">DOENÇAS</label>
           </div>
           <div class="col-75">
             <select id="doencas" class="js-example-basic-multiple" name="doencas[]" multiple="multiple" required>
@@ -31,7 +31,7 @@
 
         <div class="row">
           <div class="col-25">
-            <label>CIDADES</label>
+            <label class="label">CIDADES</label>
           </div>
           <div class="col-75">
             <select id="cidades" class="js-example-basic-multiple" name="cidades[]" multiple="multiple" required>
@@ -41,7 +41,7 @@
 
         <div class="row">
           <div class="col-25">
-            <label>BAIRROS</label>
+            <label class="label">BAIRROS</label>
           </div>
           <div class="col-75">
             <select id="bairros" class="js-example-basic-multiple" name="bairros[]" multiple="multiple"  required>
@@ -51,7 +51,7 @@
 
         <div class="row">
           <div class="col-25">
-            <label>IDADE</label>
+            <label class="label">IDADE</label>
           </div>
           <div class="col-75">
             <select id="idade" class="js-example-basic-single" name="idades" required>
@@ -68,7 +68,7 @@
 
         <div class="row">
           <div class="col-25">
-            <label>SEXO</label>
+            <label class="label">SEXO</label>
           </div>
           <div class="col-75">
             <select id="sexo" class="js-example-basic-single" name="sexo" required>
@@ -85,10 +85,7 @@
 
       </form>
     </div>
-
-    <div id="map_wrapper" >
-      <button id="voltar" class="botao">FILTROS</button>
-      <button class="botao"><a href='aniver.php'>ANIVERSARIANTES</a></button>
+    <div id="map_wrapper">
       <div id="map_canvas" class="mapping"></div>
     </div>
 
