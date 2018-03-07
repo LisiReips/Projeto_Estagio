@@ -5,7 +5,7 @@
     <link rel="shortcut icon" href="<?= IMG . 'icone.ico'; ?>" >
     <title>Mapa Pacientes</title>
 
-    <script src="<?= SCRIPTS . 'jquery-3.3.1.min.js'; ?>"></script>
+    <script src="<?= SCRIPTS . 'jquery.js'; ?>"></script>
     <script src="<?= SCRIPTS . 'select2.min.js'; ?>"></script>
     <script src="<?= SCRIPTS . 'menus.js'; ?>"></script>
 

@@ -73,7 +73,7 @@
     <link rel="shortcut icon" href="<?= IMG . 'icone.ico'; ?>" >
     <title>Aniversariantes</title>
 
-    <script src="<?= SCRIPTS . 'jquery-3.3.1.min.js'; ?>"></script>
+    <script src="<?= SCRIPTS . 'jquery.js'; ?>"></script>
 
     <link href="<?= CSS . 'select2.min.css'; ?>" type="text/css" rel="stylesheet">
     <script src="<?= SCRIPTS . 'menus.js'; ?>"></script>

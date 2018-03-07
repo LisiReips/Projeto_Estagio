@@ -159,7 +159,7 @@ label {
 #cssmenu > ul > li > a:hover,
 #cssmenu > ul > li:hover > a,
 #cssmenu > ul > li.active > a {
-  color: #444444;
+  background-color: #444444;
 }
 #cssmenu #menu-indicator {
   position: absolute;
