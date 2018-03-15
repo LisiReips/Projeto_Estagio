@@ -3,7 +3,7 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="<?= IMG . 'icone.ico'; ?>" >
-    <title>Cliníca</title>
+    <title>Clínica</title>
     
     <script src="<?= SCRIPTS . 'jquery-2.2.4.min.js'; ?>"></script>
     <script src="<?= SCRIPTS . 'menus.js'; ?>"></script>

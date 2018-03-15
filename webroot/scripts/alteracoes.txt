@@ -2,3 +2,19 @@ alter table pacientes ADD CONSTRAINT unique_prontuario UNIQUE (prontuario)
 
 alter table pacientes add column email varchar(200);
 alter table pacientes add column telefone varchar(20);
+
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  username varchar(50) unique NOT NULL,
+  password varchar(255) NOT NULL,
+  email varchar(60) NOT NULL,
+  role varchar(20) NOT NULL,
+  created timestamp DEFAULT NULL,
+  modified timestamp DEFAULT NULL
+);
+
+INSERT INTO users ( username, password, email, role, created, modified) VALUES
+('lisiane.reips', '$2y$10$3X9Yu5z9Xg6qAZNgLAOj4.bf/l9lSxAayeBmvzO9C/UiKs1aS3vpi', 'lisireips@gmail.com', 'admin', '2017-08-22 22:48:17', '2017-08-22 22:48:17');
+
+alter table cidades add column latitude numeric(10,8);
+alter table cidades add column longitude numeric(11,8);

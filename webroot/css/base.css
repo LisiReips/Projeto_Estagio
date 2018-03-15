@@ -16,6 +16,63 @@ body {
   margin:0;
 }
 
+/*CSS DOS DADOS ESTATÍSTICOSS*/
+
+table { 
+  width: 100%; 
+  border-collapse: collapse; 
+}
+caption{
+  padding-bottom: 5px;
+}
+/* Zebra striping */
+tr{ 
+  background: #eee; 
+}
+th { 
+  background: #1dc116; 
+  color: white; 
+  font-weight: bold; 
+}
+td, th { 
+  padding: 6px; 
+  border: 1px solid #ccc; 
+  text-align: left; 
+}
+@media 
+only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+	table, thead, tbody, th, td, tr { 
+		display: block; 
+	}
+	thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+	
+	tr { border: 1px solid #ccc; }
+	
+	td { 
+		border: none;
+		border-bottom: 1px solid #eee; 
+		position: relative;
+		padding-left: 50%; 
+	}
+	
+	td:before { 
+		position: absolute;
+		top: 6px;
+		left: 6px;
+		width: 45%; 
+		padding-right: 10px; 
+		white-space: nowrap;
+	}
+	td:nth-of-type(1):before { content: "Prontuario"; }
+	td:nth-of-type(2):before { content: "Nome"; }
+	td:nth-of-type(3):before { content: "Repetido"; }
+}
+
 /*CSS DOS FILTROS*/
 
 input[type=text],input[type=date], select, textarea{
@@ -112,11 +169,12 @@ input[type=date]{
 }
 #cssmenu {
   width: auto;
-  border: 3px solid #fd8a17;
+  border: 3px solid #006400;
   background: #f7f7f7;
   font-family: 'Oswald', sans-serif;
+  font-weight: bold;
   line-height: 1;
-  box-shadow: 1px 1px 0 #df7002, 2px 2px 0 #df7002, 3px 3px 3px rgba(0, 0, 0, 0.35);
+  box-shadow: 1px 1px 0 #006400, 2px 2px 0 #006400, 3px 3px 3px rgba(0, 0, 0, 0.35);
 }
 #cssmenu > ul,
 #cssmenu > ul > li > ul{
@@ -146,7 +204,7 @@ input[type=date]{
   font-size: 14px;
   text-transform: uppercase;
   text-decoration: none;
-  color: #fd8a17;
+  color: #6B8E23;
   -webkit-transition: all .2s ease;
   -moz-transition: all .2s ease;
   -ms-transition: all .2s ease;
@@ -168,7 +226,7 @@ input[type=date]{
   height: 0;
   width: 0;
   border: 5px solid transparent;
-  border-bottom-color: #fd8a17;
+  border-bottom-color: #006400;
   -webkit-transition: all 0.25s ease-out;
   -moz-transition: all 0.25s ease-out;
   -ms-transition: all 0.25s ease-out;
@@ -203,7 +261,7 @@ input[type=date]{
   font-size: 14px;
   text-transform: uppercase;
   text-decoration: none;
-  color: #fd8a17;
+  color: #006400;
   background: url('../img/bg.png');
 }
 #cssmenu.small-screen #menu-button.menu-opened {
@@ -218,8 +276,8 @@ input[type=date]{
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
-  border-top: 2px solid #fd8a17;
-  border-bottom: 2px solid #fd8a17;
+  border-top: 2px solid #006400;
+  border-bottom: 2px solid #006400;
   width: 18px;
   height: 3px;
 }
@@ -235,7 +293,7 @@ input[type=date]{
   display: block;
   width: 18px;
   height: 2px;
-  background: #fd8a17;
+  background: #006400;
 }
 #cssmenu.small-screen #menu-button.menu-opened:before {
   background: #444444;

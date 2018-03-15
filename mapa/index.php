@@ -21,7 +21,7 @@
 
         <div class="row">
           <div class="col-25">
-            <label class="label">DOENÇAS</label>
+            <label class="label "><b>DOENÇAS</b></label>
           </div>
           <div class="col-75">
             <select id="doencas" class="js-example-basic-multiple" name="doencas[]" multiple="multiple" required>
@@ -31,7 +31,7 @@
 
         <div class="row">
           <div class="col-25">
-            <label class="label">CIDADES</label>
+            <label class="label"><b>CIDADES</b></label>
           </div>
           <div class="col-75">
             <select id="cidades" class="js-example-basic-multiple" name="cidades[]" multiple="multiple" required>
@@ -41,7 +41,7 @@
 
         <div class="row">
           <div class="col-25">
-            <label class="label">BAIRROS</label>
+            <label class="label"><b>BAIRROS</b></label>
           </div>
           <div class="col-75">
             <select id="bairros" class="js-example-basic-multiple" name="bairros[]" multiple="multiple"  required>
@@ -51,7 +51,7 @@
 
         <div class="row">
           <div class="col-25">
-            <label class="label">IDADE</label>
+            <label class="label"><b>IDADE</b></label>
           </div>
           <div class="col-75">
             <select id="idade" class="js-example-basic-single" name="idades" required>
@@ -68,7 +68,7 @@
 
         <div class="row">
           <div class="col-25">
-            <label class="label">SEXO</label>
+            <label class="label"><b>SEXO</b></label>
           </div>
           <div class="col-75">
             <select id="sexo" class="js-example-basic-single" name="sexo" required>
@@ -80,7 +80,7 @@
         </div>
 
         <div class="row">
-          <button class="btn" id="fbotao">PESQUISAR</button>
+          <button class="btn" id="fbotao"><b>PESQUISAR</b></button>
         </div>
 
       </form>

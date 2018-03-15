@@ -87,7 +87,7 @@
 
         <div class="row">
           <div class="col-25">
-            <label>INICIAL</label>
+            <label><b>INICIAL</b></label>
           </div>
           <div class="col-75">
             <input id="inicial" value="<?= date('Y-m-d'); ?>" name="inicial" type='date' required>
@@ -95,7 +95,7 @@
         </div>
         <div class="row">
           <div class="col-25">
-            <label>FINAL</label>
+            <label><b>FINAL</b></label>
           </div>
           <div class="col-75">
             <input id="final" value="<?= date('Y-m-d'); ?>" name="final" type='date' required>
@@ -103,7 +103,8 @@
         </div>
 
         <div class="row">
-          <button class="btn" name="pesquisa" type="submit" id="pesquisar">PESQUISAR</button>
+          <br>
+          <button class="btn" name="pesquisa" type="submit" id="pesquisar"><b>PESQUISAR</b></button>
         </div>
 
       </form>

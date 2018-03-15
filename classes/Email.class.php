@@ -28,9 +28,9 @@
       $this->isSMTP();
       $this->SMTPDebug = 0;
 
-      $this->Host = 'PROVEDOR';
-      $this->Port = 'PORTA';
-      $this->SMTPSecure = 'none';
+      $this->Host = 'smtp.gmail.com';
+      $this->Port = '587';
+      $this->SMTPSecure = 'tls';
       $this->SMTPAuth = true;
       $this->Username = 'EMAIL';
       $this->Password = 'SENHA';
