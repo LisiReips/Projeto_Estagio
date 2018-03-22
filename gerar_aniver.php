@@ -2,7 +2,11 @@
   require 'mainfile.php';
   require 'classes/PHPExcel-1.8/Classes/PHPExcel.php';
 
-  if (isset($_POST['pesquisa'])) {
+  if (isset($_POST['gerar'])) {
+    if(file_exists('aniversariantes.xlsx')){
+      unlink('aniversariantes.xlsx');
+    }
+    
     error_reporting(E_ALL);
     ini_set('display_errors', TRUE);
     ini_set('display_startup_errors', TRUE);
@@ -50,7 +54,13 @@
 
     $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
     $objWriter->save('aniversariantes.xlsx');
-
+    if(file_exists('aniversariantes.xlsx')){
+      echo json_encode (true);
+    }else{
+      echo json_encode (false);
+    }
+    
+/*
     if (file_exists('aniversariantes.xlsx')) {
       $finfo = finfo_open(FILEINFO_MIME);
       header('Content-Disposition: attachment; filename= aniversariantes.xlsx');
@@ -64,51 +74,5 @@
       ob_clean();
       flush();
       readfile('aniversariantes.xlsx');
-    }
+    }*/
   }
-?>
-<html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="<?= IMG . 'icone.ico'; ?>" >
-    <title>Aniversariantes</title>
-
-    <script src="<?= SCRIPTS . 'jquery-2.2.4.min.js'; ?>"></script>
-
-    <link href="<?= CSS . 'select2.min.css'; ?>" type="text/css" rel="stylesheet">
-    <script src="<?= SCRIPTS . 'menus.js'; ?>"></script>
-    <link href="<?= CSS . 'base.css'; ?>" type="text/css" rel="stylesheet">
-
-  </head>
-  <body>
-     <?= $barra_menus; ?>
-    <div class="container" id="filtros">
-      <form id="form_filtros" method="POST" action="aniver.php">
-
-        <div class="row">
-          <div class="col-25">
-            <label><b>INICIAL</b></label>
-          </div>
-          <div class="col-75">
-            <input id="inicial" value="<?= date('Y-m-d'); ?>" name="inicial" type='date' required>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-25">
-            <label><b>FINAL</b></label>
-          </div>
-          <div class="col-75">
-            <input id="final" value="<?= date('Y-m-d'); ?>" name="final" type='date' required>
-          </div>
-        </div>
-
-        <div class="row">
-          <br>
-          <button class="btn" name="pesquisa" type="submit" id="pesquisar"><b>PESQUISAR</b></button>
-        </div>
-
-      </form>
-    </div>
-
-  </body>
-</html>

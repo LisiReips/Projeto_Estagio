@@ -1,5 +1,5 @@
 <?php
-require '../mainfile.php'; 
+require 'mainfile.php'; 
 
 $conexao = new PgConn();
 
@@ -34,7 +34,6 @@ $enderecos = $conexao->executar($sql);
 
     <link href="<?= CSS . 'select2.min.css'; ?>" type="text/css" rel="stylesheet">
     <link href="<?= CSS . 'base.css'; ?>" type="text/css" rel="stylesheet">
-
   </head>
    <body>
     <?= $barra_menus; ?>

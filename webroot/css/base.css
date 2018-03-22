@@ -68,9 +68,6 @@ only screen and (max-width: 760px),
     padding-right: 10px; 
     white-space: nowrap;
   }
-  td:nth-of-type(1):before { content: "Prontuario"; }
-  td:nth-of-type(2):before { content: "Nome"; }
-  td:nth-of-type(3):before { content: "Repetido"; }
 }
 
 /*CSS DOS FILTROS*/
@@ -116,6 +113,18 @@ input[type=date]{
   margin-top: 6px;
 }
 
+.col-50-l {
+  width: 50%;
+  float: left;
+  margin-top: 6px;
+}
+
+.col-50-r {
+  width: 50%;
+  float: right;
+  margin-top: 6px;
+}
+
 
 .col-75 {
   float: left;
@@ -129,8 +138,18 @@ input[type=date]{
   clear: both;
 }
 
+.central_pequeno{
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 550px;
+}
+
 @media (max-width: 600px) {
-  .col-25, .col-75, input[type=submit] {
+  .col-25, .col-75, input[type=submit],input[type=button],.col-50-l,.col-50-r{
+    width: 100%;
+    margin-top: 0;
+  }
+  .col-25, .col-75, input[type=submit],input[type=button],.col-50-l,.col-50-r {
     width: 100%;
     margin-top: 0;
   }
@@ -231,22 +250,22 @@ input[type=date]{
 }
 #cssmenu > ul > li.has-sub > a:after {
   position: absolute;
-  top: 22px;
+  top: 25px;
   right: 11px;
   width: 8px;
   height: 2px;
   display: block;
-  background: #000000;
+  background: #006400;
   content: '';
 }
 #cssmenu > ul > li.has-sub > a:before {
   position: absolute;
-  top: 19px;
+  top: 22px;
   right: 14px;
   display: block;
   width: 2px;
   height: 8px;
-  background: #000000;
+  background: #006400;
   content: '';
   -webkit-transition: all .25s ease;
   -moz-transition: all .25s ease;
@@ -554,4 +573,12 @@ input[type=date]{
 }
 #cssmenu.small-screen #menu-indicator {
   display: none;
+}
+
+.select2-container{
+  position: inherit;
+}
+
+#cssmenu > ul > li > ul > li > a{
+  padding: 10px 25px;
 }

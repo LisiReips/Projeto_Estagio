@@ -4,7 +4,7 @@
       "<div id='cssmenu'>
         <ul>
           <li class='active'><a href='" . $url . "' class='alink'>Home</a></li>
-	  <li><a href='" . $url . "aniver.php' class='alink'>Pacientes</a></li>
+	  <li><a href='" . $url . "pacientes.php' class='alink'>Pacientes</a></li>
           <li><a href='" . $url . "' class='alink'>Cadastro</a></li>
 	  <li>
 	    <a href='javascript:void(0);'>Mapas</a>
