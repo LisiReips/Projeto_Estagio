@@ -23,7 +23,11 @@
         td:nth-of-type(5):before { content: "Email"; }
         td:nth-of-type(6):before { content: "Telefone"; }
       }
-
+      input[type="image"]{
+	width: 62px;
+	height: 62px;
+	text-align: center;
+      }
     </style>
 
   </head>
@@ -47,7 +51,14 @@
   <br />
   <div class="container" id="filtros">
     <form id="form_filtros" method="POST" class="central_pequeno" action="dados_pacientes.php">
-
+      <div class="row">
+	<div class="col-50-l">
+	  <input type="image" src="<?= IMG . 'voltar.png'; ?>" id="anterior">
+	</div>
+	<div class="col-50-r">
+	  <input type="image" style="margin-left: 57%;" src="<?= IMG . 'avancar.png'; ?>" id="proximo">
+	</div>
+      </div>
       <div class="row">
         <div class="col-25">
           <label><b>Nascimento >= </b></label>

@@ -9,13 +9,15 @@ function pesquisar_pacientes() {
   $inicial = filter_input(INPUT_POST,'inicial',FILTER_SANITIZE_STRING);
   $final = filter_input(INPUT_POST,'final',FILTER_SANITIZE_STRING);
   $sexo = filter_input(INPUT_POST,'sexo',FILTER_SANITIZE_STRING);
+  $n_page = filter_input(INPUT_POST,'n_page',FILTER_SANITIZE_NUMBER_INT);
   
   $sql = "select p.prontuario, p.nome, p.idade as nascimento, p.sexo, p.email, p.telefone
         from pacientes p ";
   
   if($nome == "" || $nome == false){
     $sql .= "where (p.idade between '" . $inicial . "' and '" . $final . "')";
-    $sql .= ($sexo == "A")? "":" and p.sexo = '" . $sexo . "'";
+    $sql .= ($sexo == "A")? "":" and p.sexo = '" . $sexo . "' ";
+    $sql .= " and limit 15 offset 15*(" . $n_page . "-1);";
   }else{
     $nome = str_replace(" ", "%", strtolower($nome));
     $sql .= "where lower(p.nome) like '%" . $nome . "%'";
