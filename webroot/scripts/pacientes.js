@@ -4,7 +4,7 @@ $(document).ready(function () {
   var final = "2118-01-01";
   var sexo = "A";
 
-  //pesquisar_pacientes(inicial, final, sexo, "", n_page);
+  pesquisar_pacientes(inicial, final, sexo, "", n_page);
   $("#proximo").click(function () {
     n_page++;
     pesquisar_pacientes(inicial, final, sexo, "", n_page);

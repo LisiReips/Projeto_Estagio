@@ -24,9 +24,9 @@
         td:nth-of-type(6):before { content: "Telefone"; }
       }
       input[type="image"]{
-	width: 62px;
-	height: 62px;
-	text-align: center;
+        width: 62px;
+        height: 62px;
+        text-align: center;
       }
     </style>
 
@@ -52,19 +52,20 @@
   <div class="container" id="filtros">
     <form id="form_filtros" method="POST" class="central_pequeno" action="dados_pacientes.php">
       <div class="row">
-	<div class="col-50-l">
-	  <input type="image" src="<?= IMG . 'voltar.png'; ?>" id="anterior">
-	</div>
-	<div class="col-50-r">
-	  <input type="image" style="margin-left: 57%;" src="<?= IMG . 'avancar.png'; ?>" id="proximo">
-	</div>
+        <div class="col-50-l">
+          <button class="btn" type="button" id="anterior"><b>ANTERIOR</b></button>
+        </div>
+        <div class="col-50-r">
+          <button class="btn" style="margin-left: 55%;" type="button" id="proximo"><b>PRÓXIMO</b></button>
+        </div>
       </div>
+      <br><br>
       <div class="row">
         <div class="col-25">
           <label><b>Nascimento >= </b></label>
         </div>
         <div class="col-75">
-          <input id="inicial" value="<?= date('Y-m-d'); ?>" name="inicial" type='date' required>
+          <input id="inicial" value="<?= date('Y-m-01'); ?>" name="inicial" type='date' required>
         </div>
       </div>
       <div class="row">
@@ -72,7 +73,7 @@
           <label><b>Nascimento <= </b></label>
         </div>
         <div class="col-75">
-          <input id="final" value="<?= date('Y-m-d'); ?>" name="final" type='date' required>
+          <input id="final" value="<?= date('Y-m-t'); ?>" name="final" type='date' required>
         </div>
       </div>
       <div class="row">
@@ -100,12 +101,26 @@
         <div class="col-50-l">
           <button class="btn" name="gerar" type="button" id="gerar"><b>GERAR</b></button>
         </div>
-        <div class="col-50-r" >
+        <div class="col-50-r">
           <button class="btn" style="margin-left: 55%;" name="pesquisa" type="button" id="pesquisar"><b>PESQUISAR</b></button>
         </div>
       </div>
-
+      <br>
     </form>
+    <div class="row">
+      <div col-50-l>
+        <form method="post" enctype="multipart/form-data" class="central_pequeno" action="importar.php">
+          <div class="row">
+            <div class="col-50-l">
+              <input type="file" accept=".csv" name="arquivo" required>
+            </div>
+            <div class="col-50-r">
+              <button class="btn" style="margin-left: 55%;" name="importar" type="submit">IMPORTAR</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
 </body>
 </html>

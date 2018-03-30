@@ -15,9 +15,9 @@ $sql = "select p.prontuario, p.nome, p.email, p.telefone
 
 $contatos = $conexao->executar($sql);
 
-$sql = "select p.prontuario, p.nome, p.rua, p.num, p.bairro, p.cep, p.id_cidades as cidade
+$sql = "select p.prontuario, p.nome, p.rua, p.bairro, p.cep, p.cidade
         from pacientes p
-        where rua is null or num is null or bairro is null or cep is null or id_cidades is null";
+        where rua is null or bairro is null or cep is null or cidade is null";
 
 $enderecos = $conexao->executar($sql);
 
@@ -94,7 +94,6 @@ $enderecos = $conexao->executar($sql);
                  '<td>' . $endereco['prontuario'] . '</td>' . 
                  '<td>' . $endereco['nome'] . '</td>' .
                  '<td>' . $endereco['rua'] . ', ' .
-                  $endereco['num'] . ', ' .
                   $endereco['bairro'] . ', ' .
                   $endereco['cep'] . ', ' .
                   $endereco['cidade'] . '</td>' .

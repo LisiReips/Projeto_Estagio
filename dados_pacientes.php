@@ -17,11 +17,12 @@ function pesquisar_pacientes() {
   if($nome == "" || $nome == false){
     $sql .= "where (p.idade between '" . $inicial . "' and '" . $final . "')";
     $sql .= ($sexo == "A")? "":" and p.sexo = '" . $sexo . "' ";
-    $sql .= " and limit 15 offset 15*(" . $n_page . "-1);";
+    $sql .= " limit 10 offset 10*(" . $n_page . "-1);";
   }else{
     $nome = str_replace(" ", "%", strtolower($nome));
     $sql .= "where lower(p.nome) like '%" . $nome . "%'";
   }
+  
   $pacientes = $conexao->executar($sql);
   
   echo json_encode($pacientes);
