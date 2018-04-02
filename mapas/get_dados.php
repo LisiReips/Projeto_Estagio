@@ -41,12 +41,12 @@ function get_bairros() {
   $procura = filter_input(INPUT_POST, 'procura', FILTER_SANITIZE_STRING);
   $procura = strtoupper(str_replace(' ', '%', $procura));
   $cidades= str_replace("&#39;", "'", $cidades);
-
+  
   $sql = "select 'TODOS' as bairro 
       union all
       select distinct bairro 
       from pacientes 
-      where (cidade IN (" . $cidades . ") OR '0' IN (" . $cidades . ")) and bairro like '%" . $procura . "%'";
+      where (cidade IN (" . $cidades . ") OR 'TODAS' IN (" . $cidades . ")) and bairro like '%" . $procura . "%'";
 
   $resultado = $conexao->executar($sql);
 
@@ -66,14 +66,13 @@ function get_pacientes() {
   $bairros = str_replace("&#39;", "'", $bairros);
 
   $sql = "SELECT p.caminho_img, p.nome, to_char(p.idade,'dd.mm.yyyy') idade, p.sexo, p.rua,
-      COALESCE(p.complemento,'') complemento, p.bairro, p.cep, c.nome cidade, p.latitude,p.longitude,
+      COALESCE(p.complemento,'') complemento, p.bairro, p.cep, p.cidade, p.latitude,p.longitude,
       array_agg(d.abrev) doencas
       FROM pacientes p
-      JOIN cidades c on c.id = p.id_cidades
       JOIN pacientes_doencas pd on pd.id_pacientes = p.id
       JOIN doencas d on d.id = pd.id_doencas
       WHERE (d.id IN (" . $doencas . ") OR 0 IN (" . $doencas . "))
-	AND (p.id_cidades IN (" . $cidades . ") OR 0 IN (" . $cidades . "))
+	AND (p.cidade IN (" . $cidades . ") OR 'TODAS' IN (" . $cidades . "))
 	AND (p.bairro IN (" . $bairros . ") OR 'TODOS' IN (" . $bairros . "))
 	AND (p.sexo = '" . $sexo . "' OR 'A' = '" . $sexo . "')";
 

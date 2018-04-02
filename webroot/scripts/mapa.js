@@ -102,7 +102,7 @@ function preparar_filtros() {
         var arr = [];
         $(data).each(function (i, val) {
           arr.push({
-            id:"'" + val.cidade + "'",
+            id: "'" + val.cidade + "'",
             text: val.cidade
           });
         });
@@ -124,7 +124,7 @@ function preparar_filtros() {
         var query = {
           procura: params.term,
           funcao: 3,
-          cidades: $("#cidades").val()
+          cidades: $("#cidades").val().join(",")
         };
         return query;
       },
@@ -132,7 +132,7 @@ function preparar_filtros() {
         var arr = [];
         $(data).each(function (i, val) {
           arr.push({
-            bairro: "'" + val.bairro + "'",
+            id: "'" + val.bairro + "'",
             text: val.bairro
           });
         });
@@ -143,7 +143,6 @@ function preparar_filtros() {
 }
 
 function setar_marcadores() {
-  console.log("B");
   var bounds = new google.maps.LatLngBounds();
   var infoWindow = new google.maps.InfoWindow(), marker, i;
   var temp;
