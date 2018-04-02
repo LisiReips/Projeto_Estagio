@@ -102,7 +102,7 @@ function preparar_filtros() {
         var arr = [];
         $(data).each(function (i, val) {
           arr.push({
-            id: val.cidade,
+            id:"'" + val.cidade + "'",
             text: val.cidade
           });
         });
@@ -124,7 +124,7 @@ function preparar_filtros() {
         var query = {
           procura: params.term,
           funcao: 3,
-          cidades: $("#cidades").val().join(",")
+          cidades: $("#cidades").val()
         };
         return query;
       },

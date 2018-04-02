@@ -26,7 +26,7 @@ function get_cidades() {
 
   $sql = "select 'TODAS' as cidade 
       union all 
-      select cidade 
+      select distinct cidade 
       from pacientes
       where cidade like '%" . $procura . "%'";
   $resultado = $conexao->executar($sql);
@@ -37,15 +37,16 @@ function get_cidades() {
 function get_bairros() {
   $conexao = new PgConn();
 
-  //$cidades = filter_input(INPUT_POST, 'cidades', FILTER_SANITIZE_STRING);
+  $cidades = filter_input(INPUT_POST, 'cidades', FILTER_SANITIZE_STRING);
   $procura = filter_input(INPUT_POST, 'procura', FILTER_SANITIZE_STRING);
-  //$procura = strtoupper(str_replace(' ', '%', $procura));
+  $procura = strtoupper(str_replace(' ', '%', $procura));
+  $cidades= str_replace("&#39;", "'", $cidades);
 
   $sql = "select 'TODOS' as bairro 
       union all
-      select bairro 
+      select distinct bairro 
       from pacientes 
-      where bairro like '%" . $procura . "%'";
+      where (cidade IN (" . $cidades . ") OR '0' IN (" . $cidades . ")) and bairro like '%" . $procura . "%'";
 
   $resultado = $conexao->executar($sql);
 
