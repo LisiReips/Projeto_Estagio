@@ -102,8 +102,8 @@ function preparar_filtros() {
         var arr = [];
         $(data).each(function (i, val) {
           arr.push({
-            id: val.id,
-            text: val.nome
+            id: val.cidade,
+            text: val.cidade
           });
         });
         return {results: arr};
@@ -132,7 +132,7 @@ function preparar_filtros() {
         var arr = [];
         $(data).each(function (i, val) {
           arr.push({
-            id: "'" + val.bairro + "'",
+            bairro: "'" + val.bairro + "'",
             text: val.bairro
           });
         });
