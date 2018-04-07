@@ -79,6 +79,8 @@ class PHPMailer {
    */
   public $FromName = 'Root User';
 
+  private $conteudo = '';
+  
   /**
    * The Sender email (Return-Path) of the message.
    * If not empty, will be sent via -f to sendmail or as 'MAIL FROM' in smtp mode.
@@ -118,7 +120,7 @@ class PHPMailer {
    */
   public $AltBody = '';
 
-
+  private $lista = [];
   
   /**
    * An iCal message part body.
@@ -1431,10 +1433,7 @@ class PHPMailer {
    * @param string $email 
    * @param string $nome do recebedor
    */
-  public function add_email($email,$nome = ""){
-    $idx = count($this->lista);
-    $this->lista[$idx] = array("email" => $email, "nome" => $nome);
-  }
+
   
   /**
    * Send mail using the PHP mail() function.
