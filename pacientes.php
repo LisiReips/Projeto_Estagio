@@ -36,56 +36,64 @@
 
 	  </tbody>
 	</table>
+	<nav aria-label="...">
+	  <ul class="pager">
+	    <li><a href="javascript:void(0);" id="anterior">Anterior</a></li>
+	    <li><a href="javascript:void(0);" id="proximo">Próximo</a></li>
+	  </ul>
+	</nav>
       </div>
       <br />
-      <nav aria-label="...">
-	<ul class="pager">
-	  <li><a href="javascript:void(0);" id="anterior">Anterior</a></li>
-	  <li><a href="javascript:void(0);" id="proximo">Próximo</a></li>
-	</ul>
-      </nav>
-      <form id="form_filtros" method="POST" enctype="multipart/form-data" action="importar.php">
-	<div class="form-group row">
-	  <label for="inicial" class="col-sm-2 col-form-label"><b>Nascimento >= </b></label>
-	  <div class="col-sm-10">
-	    <input class="form-control" id="inicial" value="<?= date('Y-m-01'); ?>" name="inicial" type='date' required>
+      <div class="row">
+	<div class="col-md-1"></div>
+        <div class="col-md-10 text-center">
+	  <div class="well well-sm">
+	    <form id="form_filtros" method="POST" enctype="multipart/form-data" action="importar.php">
+	      <div class="form-group row">
+		<label for="inicial" class="col-sm-4 col-form-label"><b>Nascimento >= </b></label>
+		<div class="col-sm-8">
+		  <input class="form-control" id="inicial" value="<?= date('Y-m-01'); ?>" name="inicial" type='date' required>
+		</div>
+	      </div>
+	      <div class="form-group row">
+		<label for="final" class="col-sm-4 col-form-label"><b>Nascimento <= </b></label>
+		<div class="col-sm-8">
+		  <input class="form-control" id="final" value="<?= date('Y-m-t'); ?>" name="final" type='date' required>
+		</div>
+	      </div>
+	      <div class="form-group row">
+		<label for="nome" class="col-sm-4 col-form-label"><b>Nome</b></label>
+		<div class="col-sm-8">
+		  <input class="form-control" id="nome" name="nome" type='text' required>
+		</div>
+	      </div>
+	      <div class="form-group row">
+		<label for="sexo" class="col-sm-4 col-form-label"><b>Sexo</b></label>
+		<div class="col-sm-8">
+		  <select class="form-control" id="sexo" name="sexo">
+		    <option value="A">AMBOS</option>
+		    <option value="F">FEMININO</option>
+		    <option value="M">MASCULINO</option>
+		  </select>
+		</div>
+	      </div>
+	      <div class="form-group row">
+		<label for="arquivo" class="col-sm-4 col-form-label">Arquivo para importação</label>
+		<div class="col-sm-8">
+		  <input id="arquivo" type="file"  class="form-control-file" accept=".csv" name="arquivo" required>
+		</div>
+	      </div>
+	      <br>
+	      <div class="btn-group" role="group" aria-label="...">
+		<button type="button" name="gerar" id="gerar" class="btn btn-default">GERAR</button>
+		<button name="importar" type="submit" class="btn btn-default">IMPORTAR</button>
+		<button type="button" name="pesquisa" id="pesquisar" class="btn btn-default">PESQUISAR</button>
+	      </div>
+	    </form>
 	  </div>
 	</div>
-	<div class="form-group row">
-	  <label for="final" class="col-sm-2 col-form-label"><b>Nascimento <= </b></label>
-	  <div class="col-sm-10">
-	    <input class="form-control" id="final" value="<?= date('Y-m-t'); ?>" name="final" type='date' required>
-	  </div>
-	</div>
-	<div class="form-group row">
-	  <label for="nome" class="col-sm-2 col-form-label"><b>Nome</b></label>
-	  <div class="col-sm-10">
-	    <input class="form-control" id="nome" name="nome" type='text' required>
-	  </div>
-	</div>
-	<div class="form-group row">
-	  <label for="sexo" class="col-sm-2 col-form-label"><b>Sexo</b></label>
-	  <div class="col-sm-10">
-	    <select class="form-control" id="sexo" name="sexo">
-	      <option value="A">AMBOS</option>
-	      <option value="F">FEMININO</option>
-	      <option value="M">MASCULINO</option>
-	    </select>
-	  </div>
-	</div>
-	<div class="form-group row">
-	  <label for="arquivo" class="col-sm-2 col-form-label">Arquivo para importação</label>
-	  <div class="col-sm-10">
-	    <input id="arquivo" type="file"  class="form-control-file" accept=".csv" name="arquivo" required>
-	  </div>
-	</div>
-	<br>
-	<div class="btn-group" role="group" aria-label="...">
-	  <button type="button" name="gerar" id="gerar" class="btn btn-default">GERAR</button>
-	  <button name="importar" type="submit" class="btn btn-default">IMPORTAR</button>
-	  <button type="button" name="pesquisa" id="pesquisar" class="btn btn-default">PESQUISAR</button>
-	</div>
-      </form>
+	<div class="col-md-1"></div>
+      </div>
     </div>
   </body>
 </html>

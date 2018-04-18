@@ -40,75 +40,77 @@
   <body>
     <?= $barra_menus; ?>
     <br>
-    <div class="panel panel-default">
-      <table class="table">
-	<caption><b>Pacientes Duplicados</b></caption>
-	<thead >
-	<th><b>Prontuário</b></th>
-	<th><b>Nome</b></th>
-	<th><b>Repetido</b></th>
-	</thead>
-	<tbody>
-	  <?php
-	    foreach ($duplicados as $duplicado) {
-	      echo '<tr>' .
-	      '<td>' . $duplicado['prontuario'] . '</td>' .
-	      '<td>' . $duplicado['nome'] . '</td>' .
-	      '<td>' . $duplicado['repetido'] . '</td>' .
-	      '</tr>';
-	    }
-	  ?>
-	</tbody>
-      </table>
-    </div>
-    <br />
-    <div class="panel panel-default">
-      <table class="table">
-	<caption><b>Pacientes sem contato</b></caption>
-	<thead>
-	<th><b>Prontuário</b></th>
-	<th><b>Nome</b></th>
-	<th><b>Telefone</b></th>
-	<th><b>E-mail</b></th>
-	</thead>
-	<tbody>
-	  <?php
-	    foreach ($contatos as $contato) {
-	      echo '<tr>' .
-	      '<td>' . $contato['prontuario'] . '</td>' .
-	      '<td>' . $contato['nome'] . '</td>' .
-	      '<td>' . $contato['telefone'] . '</td>' .
-	      '<td>' . $contato['email'] . '</td>' .
-	      '</tr>';
-	    }
-	  ?>
-	</tbody>
-      </table>
-    </div>
-    <br />
-    <div class="panel panel-default">
-      <table class="table">
-	<caption><b>Pacientes sem endereço</b></caption>
-	<thead>
-	<th><b>Prontuário</b></th> 
-	<th><b>Nome</b></th>
-	<th><b>Endereço</b></th>
-	</thead>
-	<tbody>
-	  <?php
-	    foreach ($enderecos as $endereco) {
-	      echo '<tr>' .
-	      '<td>' . $endereco['prontuario'] . '</td>' .
-	      '<td>' . $endereco['nome'] . '</td>' .
-	      '<td>' . $endereco['rua'] . ', ' .
-	      $endereco['bairro'] . ', ' .
-	      $endereco['cep'] . ', ' .
-	      $endereco['cidade'] . '</td>' .
-	      '</tr>';
-	    }
-	  ?>
-	</tbody>
-      </table>
+    <div class="container-fluid">
+      <div class="panel panel-default">
+	<table class="table">
+	  <caption><b>Pacientes Duplicados</b></caption>
+	  <thead >
+	  <th><b>Prontuário</b></th>
+	  <th><b>Nome</b></th>
+	  <th><b>Repetido</b></th>
+	  </thead>
+	  <tbody>
+	    <?php
+	      foreach ($duplicados as $duplicado) {
+		echo '<tr>' .
+		'<td>' . $duplicado['prontuario'] . '</td>' .
+		'<td>' . $duplicado['nome'] . '</td>' .
+		'<td>' . $duplicado['repetido'] . '</td>' .
+		'</tr>';
+	      }
+	    ?>
+	  </tbody>
+	</table>
+      </div>
+      <br />
+      <div class="panel panel-default">
+	<table class="table">
+	  <caption><b>Pacientes sem contato</b></caption>
+	  <thead>
+	  <th><b>Prontuário</b></th>
+	  <th><b>Nome</b></th>
+	  <th><b>Telefone</b></th>
+	  <th><b>E-mail</b></th>
+	  </thead>
+	  <tbody>
+	    <?php
+	      foreach ($contatos as $contato) {
+		echo '<tr>' .
+		'<td>' . $contato['prontuario'] . '</td>' .
+		'<td>' . $contato['nome'] . '</td>' .
+		'<td>' . $contato['telefone'] . '</td>' .
+		'<td>' . $contato['email'] . '</td>' .
+		'</tr>';
+	      }
+	    ?>
+	  </tbody>
+	</table>
+      </div>
+      <br />
+      <div class="panel panel-default">
+	<table class="table">
+	  <caption><b>Pacientes sem endereço</b></caption>
+	  <thead>
+	  <th><b>Prontuário</b></th> 
+	  <th><b>Nome</b></th>
+	  <th><b>Endereço</b></th>
+	  </thead>
+	  <tbody>
+	    <?php
+	      foreach ($enderecos as $endereco) {
+		echo '<tr>' .
+		'<td>' . $endereco['prontuario'] . '</td>' .
+		'<td>' . $endereco['nome'] . '</td>' .
+		'<td>' . $endereco['rua'] . ', ' .
+		$endereco['bairro'] . ', ' .
+		$endereco['cep'] . ', ' .
+		$endereco['cidade'] . '</td>' .
+		'</tr>';
+	      }
+	    ?>
+	  </tbody>
+	</table>
+      </div>
     </div>
   </body>
 </html>
