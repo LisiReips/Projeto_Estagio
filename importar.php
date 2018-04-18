@@ -97,7 +97,7 @@ if (isset($_POST['importar'])) {
         }
       }
     }
-    unlik($newname);
+    unlink($newname);
     $msg = 'FORAM INSERIDOS ' . $inseridos . ' NOVOS REGISTROS E FORAM ATUALIZADOS ' . $atualizados . ' REGISTROS!';
   }
 } else {
