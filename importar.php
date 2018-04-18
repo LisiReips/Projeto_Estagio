@@ -16,6 +16,21 @@ function existe($prontuario) {
   }
 }
 
+function ajusta_cidade($cidade){
+  $especiais = ['Á','À','Ã','Â','á','à','ã','â',
+                'É','È','Ê','é','è','ê',
+                'Í','Ì','Î','í','ì','î',
+                'Ó','Ò','Õ','Ô','ó','ò','õ','ô',
+                'Ú','Ù','Û','ú','ù','û'];
+  $convertidas = ['A','A','A','A','A','A','A','A',
+                'E','E','E','E','E','E',
+                'I','I','I','I','I','I',
+                'O','O','O','O','O','O','O','O',
+                'U','U','U','U','U','U'];
+  
+  return str_replace($especiais,$convertidas,strtoupper($cidade));
+}
+
 function aspas($valor) {
   return ($valor == null || $valor == "") ? "null" : "'" . utf8_encode($valor) . "'";
 }
@@ -40,11 +55,11 @@ function gravar($paciente, $atualizar) {
  
   if ($atualizar) {
     $sql = "update pacientes set prontuario = " . aspas($paciente[1]) . ", nome = " . aspas($paciente[0]) . ", idade = " . converte_data($paciente[4]) . ", sexo = " . aspas($paciente[2]) . ", rua = " . aspas($paciente[6]) . ", complemento = " . aspas($paciente[7]) . ", bairro = " . aspas($paciente[8]) . ", cep = " .
-            aspas($paciente[11]) . ", telefone = " . aspas($paciente[12]) . ", cidade = " . aspas($paciente[9]) . " where prontuario = " . aspas($paciente[1]);
+            aspas($paciente[11]) . ", telefone = " . aspas($paciente[12]) . ", cidade = " . ajusta_cidade($paciente[9]) . " where prontuario = " . aspas($paciente[1]);
   } else {
     $sql = "insert into pacientes (prontuario, caminho_img, situacao, dt_situacao, nome, idade, sexo, rua, complemento, bairro, cep, latitude, longitude, email, telefone, cidade)
 values (" . aspas($paciente[1]) . ",null,null,null," . aspas($paciente[0]) . "," . converte_data($paciente[4]) . "," . aspas($paciente[2]) . "," . aspas($paciente[6]) . "," . aspas($paciente[7]) . "," . aspas($paciente[8]) . "," .
-            aspas($paciente[11]) . ",null,null,null," . aspas($paciente[12]) . "," . aspas($paciente[9]) . ")";
+            aspas($paciente[11]) . ",null,null,null," . aspas($paciente[12]) . "," . ajusta_cidade($paciente[9]) . ")";
   }
   
   $result = $conn->executar($sql, true);
