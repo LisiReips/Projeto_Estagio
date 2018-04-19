@@ -1,24 +1,28 @@
 <?php
 
-//todos os links <a> devem conter a classe alink
-$barra_menus = "<div id='cssmenu'>
-        <ul>
-          <li class='active'><a href='" . $url . "home.php' class='alink'>Home</a></li>
-	  <li><a href='" . $url . "pacientes.php' class='alink'>Pacientes</a></li>
-          <li>
-	    <a href='javascript:void(0);'>Mensagens</a>
-	    <ul>
-	      <li><a href='" . $url . "cadastro_msg.php' class='alink'>Cadastrar</a></li>
-              <li><a href='" . $url . "envio_msg.php' class='alink'>Enviar</a></li>
-	    </ul>
-	  </li>          
-	  <li>
-	    <a href='javascript:void(0);'>Mapas</a>
-	    <ul>
-	      <li><a href='" . $url . "mapas/index.php?x=1' id='link_filtros' class='alink'>Pacientes</a></li>
-              <li><a href='" . $url . "mapas/regional.php' class='alink'>Regional</a></li>
-	    </ul>
-	  </li>
-          <li><a href='" . $url . "estatistica.php' class='alink'>Dados Estatísticos</a></li>
-        </ul>
-      </div>";
+ $barra_menus = '<div class="navbar navbar-default" role="navigation">
+    <div class="navbar-header">  <!-- OFF NAVEGACAO -->
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#" >CIEMP</a>
+    </div>
+    <div id="main" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li><a href="' . $url . '">Home</a></li>
+	<li><a href="' . $url . 'pacientes.php">Pacientes</a></li>
+        <li><a href="' . $url . 'mensagens.php">Mensagens</a></li>          
+	<li>
+	  <a href="javascript:void(0);">Mapas<span class="caret"></span></a>
+	  <ul class="dropdown-menu">
+	    <li><a href="' . $url . 'mapas/index.php?x=1" id="link_filtros">Pacientes</a></li>
+            <li><a href="' . $url . 'mapas/regional.php">Regional</a></li>
+	  </ul>
+	</li>
+        <li><a href="' . $url . 'estatistica.php">Dados Estatísticos</a></li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>';

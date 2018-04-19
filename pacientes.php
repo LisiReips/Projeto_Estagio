@@ -5,122 +5,97 @@
     <link rel="shortcut icon" href="<?= IMG . 'icone.ico'; ?>" >
     <title>Pacientes</title>
 
-    <script src="<?= SCRIPTS . 'jquery-2.2.4.min.js'; ?>"></script>
-    <script src="<?= SCRIPTS . 'select2.min.js'; ?>"></script>
-    <script src="<?= SCRIPTS . 'menus.js'; ?>"></script>
-    <script src="<?= SCRIPTS . 'pacientes.js'; ?>"></script>
-
-    <link href="<?= CSS . 'select2.min.css'; ?>" type="text/css" rel="stylesheet">
+    <link href="<?= URL . 'libs/bootstrap-3.3.7/dist/css/bootstrap.min.css'; ?>" type="text/css" rel="stylesheet">
+    <link href="<?= URL . 'libs/smartmenus-1.1.0/css/smartmenu.css'; ?>" type="text/css" rel="stylesheet">
+    <link href="<?= URL . 'libs/smartmenus-1.1.0/addons/bootstrap/jquery.smartmenus.bootstrap.css'; ?>" type="text/css" rel="stylesheet">
     <link href="<?= CSS . 'base.css'; ?>" type="text/css" rel="stylesheet">
-    <style>
-      @media 
-      only screen and (max-width: 760px),
-      (min-device-width: 768px) and (max-device-width: 1024px){
-        td:nth-of-type(1):before { content: "Prontuario"; }
-        td:nth-of-type(2):before { content: "Nome"; }
-        td:nth-of-type(3):before { content: "Nascimento"; }
-        td:nth-of-type(4):before { content: "Sexo"; }
-        td:nth-of-type(5):before { content: "Email"; }
-        td:nth-of-type(6):before { content: "Telefone"; }
-      }
-      input[type="image"]{
-        width: 62px;
-        height: 62px;
-        text-align: center;
-      }
-    </style>
+
+    <script src="<?= SCRIPTS . 'jquery-2.2.4.min.js'; ?>"></script>
+    <script src="<?= URL . 'libs/bootstrap-3.3.7/dist/js/bootstrap.min.js'; ?>"></script>
+    <script src="<?= URL . 'libs/smartmenus-1.1.0/jquery.smartmenus.min.js'; ?>"></script>
+    <script src="<?= URL . 'libs/smartmenus-1.1.0/addons/bootstrap/jquery.smartmenus.bootstrap.min.js'; ?>"></script>
+    <script src="<?= SCRIPTS . 'pacientes.js'; ?>"></script>
 
   </head>
   <body>
     <?= $barra_menus; ?>
     <br>
-    <table>
-      <caption><b>Pacientes</b></caption>
-      <thead>
-      <th><b>Prontuário</b></th>
-      <th><b>Nome</b></th>
-      <th><b>Nascimento</b></th>
-      <th><b>Sexo</b></th>
-      <th><b>Email</b></th>
-      <th><b>Telefone</b></th>
-    </thead>
-    <tbody id="tabela">
+    <div class="container-fluid">
+      <div class="panel panel-default">
+	<table class="table">
+	  <caption><b>Pacientes</b></caption>
+	  <thead>
+	  <th><b>Prontuário</b></th>
+	  <th><b>Nome</b></th>
+	  <th><b>Nascimento</b></th>
+	  <th><b>Sexo</b></th>
+	  <th><b>Email</b></th>
+	  <th><b>Telefone</b></th>
+	  </thead>
+	  <tbody id="tabela">
 
-    </tbody>
-  </table>
-  <br />
-  <div class="container" id="filtros">
-    <form id="form_filtros" method="POST" class="central_pequeno" action="dados_pacientes.php">
-      <div class="row">
-        <div class="col-50-l">
-          <button class="btn" type="button" id="anterior"><b>ANTERIOR</b></button>
-        </div>
-        <div class="col-50-r">
-          <button class="btn" style="margin-left: 55%;" type="button" id="proximo"><b>PRÓXIMO</b></button>
-        </div>
+	  </tbody>
+	</table>
+	<nav aria-label="...">
+	  <ul class="pager">
+	    <li><a href="javascript:void(0);" id="anterior">Anterior</a></li>
+	    <li><a href="javascript:void(0);" id="proximo">Próximo</a></li>
+	  </ul>
+	</nav>
       </div>
-      <br><br>
+      <br />
       <div class="row">
-        <div class="col-25">
-          <label><b>Nascimento >= </b></label>
-        </div>
-        <div class="col-75">
-          <input id="inicial" value="<?= date('Y-m-01'); ?>" name="inicial" type='date' required>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-25">
-          <label><b>Nascimento <= </b></label>
-        </div>
-        <div class="col-75">
-          <input id="final" value="<?= date('Y-m-t'); ?>" name="final" type='date' required>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-25">
-          <label><b>Nome</b></label>
-        </div>
-        <div class="col-75">
-          <input id="nome" name="nome" type='text' required>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-25">
-          <label><b>Sexo</b></label>
-        </div>
-        <div class="col-75">
-          <select id="sexo" name="sexo">
-            <option value="A">AMBOS</option>
-            <option value="F">FEMININO</option>
-            <option value="M">MASCULINO</option>
-          </select>
-        </div>
-      </div>
-      <br>
-      <div class="row">
-        <div class="col-50-l">
-          <button class="btn" name="gerar" type="button" id="gerar"><b>GERAR</b></button>
-        </div>
-        <div class="col-50-r">
-          <button class="btn" style="margin-left: 55%;" name="pesquisa" type="button" id="pesquisar"><b>PESQUISAR</b></button>
-        </div>
-      </div>
-      <br>
-    </form>
-    <div class="row">
-      <div col-50-l>
-        <form method="post" enctype="multipart/form-data" class="central_pequeno" action="importar.php">
-          <div class="row">
-            <div class="col-50-l">
-              <input type="file" accept=".csv" name="arquivo" required>
-            </div>
-            <div class="col-50-r">
-              <button class="btn" style="margin-left: 55%;" name="importar" type="submit">IMPORTAR</button>
-            </div>
-          </div>
-        </form>
+
+        <div class="col-md-12 text-center">
+	  <div class="well well-sm">
+	    <form id="form_filtros" method="POST" enctype="multipart/form-data" action="importar.php">
+	      <fieldset>
+		<legend class="text-center fheader">Pesquisar</legend>
+	      </fieldset>
+	      <div class="form-group row">
+		<label for="inicial" class="col-sm-4 col-form-label"><b>Nascimento >= </b></label>
+		<div class="col-sm-6">
+		  <input class="form-control" id="inicial" value="<?= date('Y-m-01'); ?>" name="inicial" type='date' required>
+		</div>
+	      </div>
+	      <div class="form-group row">
+		<label for="final" class="col-sm-4 col-form-label"><b>Nascimento <= </b></label>
+		<div class="col-sm-6">
+		  <input class="form-control" id="final" value="<?= date('Y-m-t'); ?>" name="final" type='date' required>
+		</div>
+	      </div>
+	      <div class="form-group row">
+		<label for="nome" class="col-sm-4 col-form-label"><b>Nome</b></label>
+		<div class="col-sm-6">
+		  <input class="form-control" id="nome" name="nome" type='text' required>
+		</div>
+	      </div>
+	      <div class="form-group row">
+		<label for="sexo" class="col-sm-4 col-form-label"><b>Sexo</b></label>
+		<div class="col-sm-6">
+		  <select class="form-control" id="sexo" name="sexo">
+		    <option value="A">AMBOS</option>
+		    <option value="F">FEMININO</option>
+		    <option value="M">MASCULINO</option>
+		  </select>
+		</div>
+	      </div>
+	      <div class="form-group row">
+		<label for="arquivo" class="col-sm-4 col-form-label">Arquivo para importação</label>
+		<div class="col-sm-6">
+		  <input id="arquivo" type="file"  class="form-control-file" accept=".csv" name="arquivo" required>
+		</div>
+	      </div>
+	      <br>
+	      <div class="btn-group" role="group" aria-label="...">
+		<button type="button" name="gerar" id="gerar" class="btn btn-default">GERAR</button>
+		<button name="importar" type="submit" class="btn btn-default">IMPORTAR</button>
+		<button type="button" name="pesquisa" id="pesquisar" class="btn btn-default">PESQUISAR</button>
+	      </div>
+	    </form>
+	  </div>
+	</div>
       </div>
     </div>
-  </div>
-</body>
+  </body>
 </html>

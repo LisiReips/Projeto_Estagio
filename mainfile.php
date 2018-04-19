@@ -1,7 +1,7 @@
 <?php
 
 const DB_HOST = 'localhost';
-const DB_USER = 'postgres';
+const DB_USER = 'root';
 const DB_PASS = 315218;
 const DB_NAME = 'db_pacientes';
 const DB_PORT = 5432;
