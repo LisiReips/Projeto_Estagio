@@ -12,7 +12,7 @@
     </div>
     <div id="main" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li><a href="' . $url . 'home.php">Home</a></li>
+        <li><a href="' . $url . '">Home</a></li>
 	<li><a href="' . $url . 'pacientes.php">Pacientes</a></li>
         <li><a href="' . $url . 'mensagens.php">Mensagens</a></li>          
 	<li>

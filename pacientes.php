@@ -45,31 +45,34 @@
       </div>
       <br />
       <div class="row">
-	<div class="col-md-1"></div>
-        <div class="col-md-10 text-center">
+
+        <div class="col-md-12 text-center">
 	  <div class="well well-sm">
 	    <form id="form_filtros" method="POST" enctype="multipart/form-data" action="importar.php">
+	      <fieldset>
+		<legend class="text-center fheader">Pesquisar</legend>
+	      </fieldset>
 	      <div class="form-group row">
 		<label for="inicial" class="col-sm-4 col-form-label"><b>Nascimento >= </b></label>
-		<div class="col-sm-8">
+		<div class="col-sm-6">
 		  <input class="form-control" id="inicial" value="<?= date('Y-m-01'); ?>" name="inicial" type='date' required>
 		</div>
 	      </div>
 	      <div class="form-group row">
 		<label for="final" class="col-sm-4 col-form-label"><b>Nascimento <= </b></label>
-		<div class="col-sm-8">
+		<div class="col-sm-6">
 		  <input class="form-control" id="final" value="<?= date('Y-m-t'); ?>" name="final" type='date' required>
 		</div>
 	      </div>
 	      <div class="form-group row">
 		<label for="nome" class="col-sm-4 col-form-label"><b>Nome</b></label>
-		<div class="col-sm-8">
+		<div class="col-sm-6">
 		  <input class="form-control" id="nome" name="nome" type='text' required>
 		</div>
 	      </div>
 	      <div class="form-group row">
 		<label for="sexo" class="col-sm-4 col-form-label"><b>Sexo</b></label>
-		<div class="col-sm-8">
+		<div class="col-sm-6">
 		  <select class="form-control" id="sexo" name="sexo">
 		    <option value="A">AMBOS</option>
 		    <option value="F">FEMININO</option>
@@ -79,7 +82,7 @@
 	      </div>
 	      <div class="form-group row">
 		<label for="arquivo" class="col-sm-4 col-form-label">Arquivo para importação</label>
-		<div class="col-sm-8">
+		<div class="col-sm-6">
 		  <input id="arquivo" type="file"  class="form-control-file" accept=".csv" name="arquivo" required>
 		</div>
 	      </div>
@@ -92,7 +95,6 @@
 	    </form>
 	  </div>
 	</div>
-	<div class="col-md-1"></div>
       </div>
     </div>
   </body>

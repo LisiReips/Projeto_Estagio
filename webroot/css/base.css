@@ -10,6 +10,11 @@ body {
   margin-bottom: 0;
 }
 .centered {
-    margin: 0 auto !important;
-    float: none !important;
+  margin: 0 auto !important;
+  float: none !important;
+}
+.fheader{
+  color: #36A0FF;
+  font-size: 27px;
+  padding: 10px;
 }

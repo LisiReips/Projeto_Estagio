@@ -24,31 +24,33 @@
     <br>
     <div class="container-fluid"  id="filtros" style="display:none;">
       <div class="row">
-	<div class="col-md-1"></div>
-        <div class="col-md-10 text-center">
+        <div class="col-md-12 text-center">
 	  <div class="well well-sm">
 	    <form id="form_filtros" method="POST" enctype="multipart/form-data" action="importar.php">
+	      <fieldset>
+	        <legend class="text-center fheader">Pesquisar</legend>
+	      </fieldset>
 	      <div class="form-group row">
 		<label for="doencas" class="col-sm-4 col-form-label"><b>DOENÇAS</b></label>
-		<div class="col-sm-8">
+		<div class="col-sm-6">
 		  <select id="doencas" class="js-example-basic-multiple form-control" name="doencas[]" multiple="multiple" required></select>
 		</div>
 	      </div>
 	      <div class="form-group row">
 		<label for="cidades" class="col-sm-4 col-form-label"><b>CIDADES</b></label>
-		<div class="col-sm-8">
+		<div class="col-sm-6">
 		  <select id="cidades" class="js-example-basic-multiple form-control" name="cidades[]" multiple="multiple" required></select>
 		</div>
 	      </div>
 	      <div class="form-group row">
 		<label for="bairros" class="col-sm-4 col-form-label"><b>BAIRROS</b></label>
-		<div class="col-sm-8">
+		<div class="col-sm-6">
 		  <select id="bairros" class="js-example-basic-multiple form-control" name="bairros[]" multiple="multiple"  required></select>
 		</div>
 	      </div>
 	      <div class="form-group row">
 		<label for="idade" class="col-sm-4 col-form-label"><b>IDADE</b></label>
-		<div class="col-sm-8">
+		<div class="col-sm-6">
 		  <select id="idade" class="js-example-basic-single form-control" name="idades" required>
 		    <option value="0">TODAS AS IDADES</option>
 		    <option value="0,10">ATÈ 10 ANOS</option>
@@ -62,7 +64,7 @@
 	      </div>
 	      <div class="form-group row">
 		<label for="sexo" class="col-sm-4 col-form-label"><b>IDADE</b></label>
-		<div class="col-sm-8">
+		<div class="col-sm-6">
 		  <select id="sexo" class="js-example-basic-single form-control" name="sexo" required>
 		    <option value="A">AMBOS</option>
 		    <option value="M">MASCULINO</option>
@@ -77,7 +79,6 @@
 	    </form>
 	  </div>
 	</div>
-	<div class="col-md-1"></div>
       </div>
     </div>
     <div id="map_wrapper">
